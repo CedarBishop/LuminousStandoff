@@ -11,11 +11,11 @@ public class PlayerMovement : MonoBehaviour
 	private PhotonView photonView;
 	private Rigidbody rigidbody;
 	private Vector3 movementDirection;
-	private AbilitiesManager abManager;
+	//private AbilitiesManager abManager;
 
 	void Start()
 	{
-		abManager = GetComponent<AbilitiesManager>();
+		//TryGetComponent<AbilitiesManager>(out abManager);
 		photonView = GetComponent<PhotonView>();
 		rigidbody = GetComponent<Rigidbody>();
 		rigidbody.useGravity = false;
@@ -31,9 +31,9 @@ public class PlayerMovement : MonoBehaviour
 			BasicMovement();
 		}
 
-		BasicMovement(); // TODO: PC debugging only, remove for gold release
-		if (Input.GetKeyDown(KeyCode.E))
-			abManager.ActivateAbility();
+		// TODO: PC debugging only, remove for gold release
+		//if (Input.GetKeyDown(KeyCode.E))
+			//abManager.ActivateAbility();
 	}
 
 	void BasicMovement()

@@ -21,7 +21,7 @@ public class PlayerCombat : MonoBehaviour
 	void Start()
 	{
 #if UNITY_IPHONE || UNITY_ANDROID
-        fixedJoystick = GameObject.Find("Right Joystick").GetComponent<FixedJoystick>();
+		fixedJoystick = GameObject.Find("Right Joystick").GetComponent<FixedJoystick>();
 #endif
 
 		photonView = GetComponent<PhotonView>();
@@ -35,24 +35,27 @@ public class PlayerCombat : MonoBehaviour
 		transform.forward = joystickDirection;
 		canShoot = true;
 	}
-
+#if UNITY_ANDROID || UNITY_IPHONE
 	void Update()
 	{
-#if UNITY_ANDROID || UNITY_IPHONE
-        joystickDirection = new Vector3(fixedJoystick.Horizontal, 0, fixedJoystick.Vertical);
+
+		joystickDirection = new Vector3(fixedJoystick.Horizontal, 0, fixedJoystick.Vertical);
 
 		if (Mathf.Abs(joystickDirection.x) > 0.25f || Mathf.Abs(joystickDirection.z) > 0.25f)
 		{
 			transform.forward = joystickDirection;
-            if (canShoot)
-            {
+			if (canShoot)
+			{
 				canShoot = false;
-                Shoot();
-                }
+				Shoot();
 			}
 		}
-#elif UNITY_EDITOR || UNITY_STANDALONE
+	}
 
+
+#elif UNITY_EDITOR || UNITY_STANDALONE
+	void Update()
+	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 
@@ -71,8 +74,9 @@ public class PlayerCombat : MonoBehaviour
 				Shoot();
 			}
 		}
-#endif
 	}
+#endif
+	
 
 	void Shoot()
 	{

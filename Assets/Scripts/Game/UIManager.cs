@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
 				{
 					if (num == 2)
 					{
-						SpawnSkillSelectionButtons();
+						//SpawnSkillSelectionButtons();
 					}
 				}
 
@@ -156,7 +156,7 @@ public class UIManager : MonoBehaviour
 				{
 					if (num == 1)
 					{
-						SpawnSkillSelectionButtons();
+						//SpawnSkillSelectionButtons();
 					}
 				}
 
@@ -339,7 +339,7 @@ public class UIManager : MonoBehaviour
 	void Intermission()
 	{
 
-		roundTimer = 10;
+		roundTimer = 3;
 		isRoundIntermission = true;
 		roundIsUnderway = false;
 		roundTimerText.text = "";
@@ -428,7 +428,6 @@ public class UIManager : MonoBehaviour
 		else
 		{
 			PlayerInfo.playerInfo.passionEarnedThisMatch = 5;
-
 		}
 	}
 }
