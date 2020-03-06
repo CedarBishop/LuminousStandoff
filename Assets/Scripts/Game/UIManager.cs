@@ -52,8 +52,8 @@ public class UIManager : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-#if UNITY_IPHONE || UNITY_ANDROID
-        leftJoystick.gameObject.SetActive(true);
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_WEBGL
+		leftJoystick.gameObject.SetActive(true);
         rightJoystick.gameObject.SetActive(true);
 #elif UNITY_EDITOR || UNITY_STANDALONE
 		leftJoystick.gameObject.SetActive(false);

@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
 
 	void Start()
 	{
-#if UNITY_IPHONE || UNITY_ANDROID
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_WEBGL
 		fixedJoystick = GameObject.Find("Right Joystick").GetComponent<FixedJoystick>();
 #endif
 
@@ -35,7 +35,7 @@ public class PlayerCombat : MonoBehaviour
 		transform.forward = joystickDirection;
 		canShoot = true;
 	}
-#if UNITY_ANDROID || UNITY_IPHONE
+#if UNITY_ANDROID || UNITY_IPHONE || UNITY_WEBGL
 	void Update()
 	{
 
@@ -76,7 +76,7 @@ public class PlayerCombat : MonoBehaviour
 		}
 	}
 #endif
-	
+
 
 	void Shoot()
 	{

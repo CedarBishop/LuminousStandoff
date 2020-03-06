@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-[RequireComponent(typeof(PlayerMovement)), DisallowMultipleComponent]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerMovement : MonoBehaviour
 {
 	public float movementSpeed;
@@ -38,19 +38,15 @@ public class PlayerMovement : MonoBehaviour
 
 	void BasicMovement()
 	{
-#if UNITY_IPHONE || UNITY_ANDROID
-        movementDirection.x = joystick.Horizontal;
-        movementDirection.y = 0;
-        movementDirection.z = joystick.Vertical;
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_WEBGL
+		movementDirection.x = joystick.Horizontal;
+		movementDirection.y = 0;
+		movementDirection.z = joystick.Vertical;
 #elif UNITY_EDITOR || UNITY_STANDALONE
 		movementDirection.x = Input.GetAxis("Horizontal");
 		movementDirection.y = 0;
 		movementDirection.z = Input.GetAxisRaw("Vertical");
 #endif
-
-		movementDirection.x = Input.GetAxis("Horizontal");
-		movementDirection.y = 0;
-		movementDirection.z = Input.GetAxisRaw("Vertical");
 
 		movementDirection = movementDirection.normalized;
 

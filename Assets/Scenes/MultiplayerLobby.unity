@@ -869,11 +869,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Post-process Volume (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5933550873584629971, guid: c2847f1fae457db4a89ed09dede14892,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5933550873584629974, guid: c2847f1fae457db4a89ed09dede14892,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1421,6 +1416,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 363955035497425973, guid: 8b73235117f5a3649abe6a63af366820,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2446011747868950007, guid: 8b73235117f5a3649abe6a63af366820,
         type: 3}
       propertyPath: m_LocalPosition.x
