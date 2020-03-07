@@ -130,6 +130,20 @@ public class PlayerCombat : MonoBehaviour
 		}
 	}
 
+	public void ReplenishHealth(int amount)
+	{
+		if (UIManager.instance != null)
+		{
+			health += amount;
+			if (health > 100)
+			{
+				health = 100;
+			}
+			photonView.RPC("RPC_UpdateHealth", RpcTarget.All, health, roomNumber);
+			print(roomNumber.ToString() + " is on " + health + " health");
+		}
+	}
+
 	[PunRPC]
 	void RPC_UpdateHealth(int health, int playerNumber)
 	{
