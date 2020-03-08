@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3819893029228289621}
   - component: {fileID: 3819893029228289622}
   - component: {fileID: 3819893029228289623}
-  - component: {fileID: 3819893029228289619}
-  - component: {fileID: -940047800891696805}
+  - component: {fileID: 6483862666190730406}
+  - component: {fileID: 7300504055748852150}
   m_Layer: 0
   m_Name: Health Pickup
   m_TagString: Untagged
@@ -94,7 +94,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3819893029228289619
+--- !u!114 &6483862666190730406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3819893029228289608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4077cbe9dada805418e8d191eb2491d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replenishAmount: 50
+  pickupIndex: 0
+--- !u!114 &7300504055748852150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,25 +123,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 0
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: -940047800891696805}
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-940047800891696805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3819893029228289608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0

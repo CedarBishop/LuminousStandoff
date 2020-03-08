@@ -42,5 +42,6 @@ MonoBehaviour:
   - RPC_TellMasterToStartGame
   - RPC_UpdateHealth
   - RPC_SpawnHealthPickup
+  - RPC_OnHealthPickup
   DisableAutoOpenWizard: 1
   ShowSettings: 1

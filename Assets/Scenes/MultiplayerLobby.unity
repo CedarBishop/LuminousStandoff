@@ -1758,6 +1758,92 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &1401269387
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3819893029228289608, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_Name
+      value: Health Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819893029228289620, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300504055748852150, guid: db24bd7272c652647a0b4dc288695626,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db24bd7272c652647a0b4dc288695626, type: 3}
+--- !u!114 &1401269388 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6483862666190730406, guid: db24bd7272c652647a0b4dc288695626,
+    type: 3}
+  m_PrefabInstance: {fileID: 1401269387}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4077cbe9dada805418e8d191eb2491d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1402922551
 Mesh:
   m_ObjectHideFlags: 0
@@ -3327,6 +3413,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
+      propertyPath: healthPickups.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
+      propertyPath: healthPickups.Array.data[0]
+      value: 
+      objectReference: {fileID: 1401269388}
     - target: {fileID: 5143463932986864357, guid: 49229cb4e52c12e4987068e983971cc8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3346,6 +3442,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913365263029926577, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
+      propertyPath: viewIdField
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49229cb4e52c12e4987068e983971cc8, type: 3}

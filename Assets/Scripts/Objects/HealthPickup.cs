@@ -8,17 +8,19 @@ public class HealthPickup : MonoBehaviour
 {
     public int replenishAmount; 
     [HideInInspector] public int pickupIndex;
+    PlayerCombat player;
 
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Triggered something");
-        if (other.TryGetComponent<PlayerCombat>(out PlayerCombat player ))
+        if (other.CompareTag("Player"))
         {
-            print("Triggered player");
+            player = other.gameObject.GetComponentInParent<PlayerCombat>();
+            
             player.ReplenishHealth(replenishAmount);
-            LevelManager.instance.StartHealthRespawnTimer(0);
-            Destroy(gameObject);
+            LevelManager.instance.OnHealthPickup(pickupIndex);
+                        
+           
         }
     }
 }

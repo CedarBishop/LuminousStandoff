@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] spawnPoints;
     public int requiredRoundsToWinMatch = 5;
 
-    public Transform[] healthPickupLocations;
+    public HealthPickup[] healthPickups;
     public float healthPickupRespawnTime;
 
     private void Awake()
@@ -28,34 +28,32 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        photonView = GetComponent<PhotonView>();
+        if (healthPickups != null)
         {
-            if (healthPickupLocations != null)
+            for (int i = 0; i < healthPickups.Length; i++)
             {
-                for (int i = 0; i < healthPickupLocations.Length; i++)
-                {
-                    RPC_SpawnHealthPickup(i);
-                }
-            }          
-            
-        }
+                healthPickups[i].gameObject.SetActive(true);
+                healthPickups[i].pickupIndex = i;
+            }
+        }        
     }
 
-    public void StartHealthRespawnTimer (int pickupIndex)
+    public void OnHealthPickup (int pickupIndex)
     {
-        StartCoroutine(DelaySpawnHealthPickup(pickupIndex));
+        photonView.RPC("RPC_OnHealthPickup", RpcTarget.All,pickupIndex);
+    }
+
+    [PunRPC]
+    void RPC_OnHealthPickup(int pickupIndex)
+    {
+        healthPickups[pickupIndex].gameObject.SetActive(false);
+        StartCoroutine("DelaySpawnHealthPickup", pickupIndex);
     }
 
     IEnumerator DelaySpawnHealthPickup(int pickupIndex)
     {
         yield return new WaitForSeconds(healthPickupRespawnTime);
-        photonView.RPC("RPC_SpawnHealthPickup", RpcTarget.MasterClient, pickupIndex);
-    }
-
-    [PunRPC]
-    void RPC_SpawnHealthPickup (int pickupIndex)
-    {
-        GameObject pickup = PhotonNetwork.Instantiate("PhotonPrefabs/Health Pickup", healthPickupLocations[pickupIndex].position, Quaternion.identity);
-       // pickup.GetComponent<HealthPickup>().pickupIndex = pickupIndex;
+        healthPickups[pickupIndex].gameObject.SetActive(true);
     }
 }
