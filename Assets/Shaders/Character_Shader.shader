@@ -3,10 +3,10 @@
     Properties
     {
          _MainTex("Texture", 2D) = "white" {}
-         _Intensity("Multiplier", Float) = 10
-         _EdgeColor("Color", Color) = (1, 0, 0.7064714, 0)
-         _FresnellPower("Fresnell power", Float) = 5
-        _FresnellColor("fresnell color", Color) = (1, 1, 1, 0)
+         _Intensity("_Intensity", Float) = 10
+         _EdgeColor("_EdgeColor", Color) = (1, 0, 0.7064714, 0)
+         _FresnellPower("_FresnellPower", Float) = 5
+        _FresnellColor("_FresnellColor", Color) = (1, 1, 1, 0)
     }
     SubShader
     {

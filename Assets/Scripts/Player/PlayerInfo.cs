@@ -10,7 +10,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 	public int selectedCharacter;
 	public GameObject[] allCharacters;
 
-	public int passionEarnedThisMatch;
+	[HideInInspector] public int passionEarnedThisMatch;
 
 	[HideInInspector] public string selectedCharacterKey = "SelectedCharacter";
 

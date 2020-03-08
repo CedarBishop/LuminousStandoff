@@ -27,5 +27,5 @@ Material:
     - _FresnellPower: 5
     - _Intensity: 10
     m_Colors:
-    - _EdgeColor: {r: 1, g: 0, b: 0.7064714, a: 0}
+    - _EdgeColor: {r: 1, g: 1, b: 1, a: 0}
     - _FresnellColor: {r: 1, g: 1, b: 1, a: 0}
