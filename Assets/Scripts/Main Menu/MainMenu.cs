@@ -21,6 +21,10 @@ public class MainMenu : MonoBehaviour
     private int characterNumber;
 
     public GameObject[] currentCharacterDisplayObjects;
+    public GameObject lockedCharacterDisplay;
+    public string[] cosmeticKeyNames;
+    bool currentCharacterIsUnlocked;
+    
     void Start()
     {
         SetMenuType(1);
@@ -28,7 +32,7 @@ public class MainMenu : MonoBehaviour
         InitText();
         characterNumber = 0;
         ActivateCharacterDisplay();
-
+        currentCharacterIsUnlocked = true;
     }
 
     public void Quit  ()
@@ -79,29 +83,22 @@ public class MainMenu : MonoBehaviour
         SoundManager.instance.SetSFXVolume(sfxSlider.value);
     }
 
-    private void Update()
+    public void GetMoney ()
     {
-        TestCurrency();
+        currency.EarnPassion(10);
+        currency.EarnGold(10);
     }
 
-    public void TestCurrency()
+    public void ClearMoneyAndSkins ()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        currency.SpendPassion(currency.GetPassion());
+        currency.SpendGold(currency.GetGold());
+
+        for (int i = 0; i < cosmeticKeyNames.Length; i++)
         {
-            currency.EarnPassion(1);
-            
+            PlayerPrefs.SetInt(cosmeticKeyNames[i],0);
         }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            currency.EarnGold(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-
-        }
-
+        GetComponent<Shop>().InitShop();
     }
 
     void InitText()
@@ -124,7 +121,19 @@ public class MainMenu : MonoBehaviour
         {
             characterNumber = 0;
         }
+    
+     
+       
         ActivateCharacterDisplay();
+
+        if (characterNumber > 0)
+        {
+            if (PlayerPrefs.GetInt(cosmeticKeyNames[characterNumber - 1], 0) == 0)
+            {
+                return;
+            }
+        }
+
         if (PlayerInfo.playerInfo != null)
         {
             PlayerInfo.playerInfo.selectedCharacter = characterNumber;
@@ -140,14 +149,32 @@ public class MainMenu : MonoBehaviour
         {
             return;
         }
+
+        // Deativate all character display objects
         for (int i = 0; i < currentCharacterDisplayObjects.Length; i++)
         {
-            currentCharacterDisplayObjects[i].SetActive(false);
-            if (i == characterNumber)
+            currentCharacterDisplayObjects[i].SetActive(false);     
+            lockedCharacterDisplay.SetActive(false);
+
+        }
+
+        if (characterNumber > 0)
+        {
+            if (PlayerPrefs.GetInt(cosmeticKeyNames[characterNumber - 1], 0) == 1)
             {
-                currentCharacterDisplayObjects[i].SetActive(true);
+                currentCharacterDisplayObjects[characterNumber].SetActive(true);
+            }
+            else
+            {
+                lockedCharacterDisplay.SetActive(true);
             }
         }
+        else
+        {
+            currentCharacterDisplayObjects[characterNumber].SetActive(true);
+        }
+
+        
         
     }
 
@@ -161,7 +188,7 @@ public class MainMenu : MonoBehaviour
         {
             currentCharacterDisplayObjects[i].SetActive(false);
         }
-
+        lockedCharacterDisplay.SetActive(false);
     }
 
 }

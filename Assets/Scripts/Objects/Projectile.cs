@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
 	Rigidbody rigidbody;
 	public int damage;
 	public float force;
-	public bool isMyProjectile;
+	[HideInInspector] public bool isMyProjectile;
 	Vector3 _direction;
 	//public Material allyMaterial;
 
@@ -23,8 +23,6 @@ public class Projectile : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody>();
 		rigidbody.AddForce(force * transform.forward);
 		StartCoroutine("DelayedDestroy");
-		//GameSetup.EndOfRound += EndOfRoundDestroy;
-
 	}
 
 	IEnumerator DelayedDestroy()
@@ -68,13 +66,6 @@ public class Projectile : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-
-	//void EndOfRoundDestroy ()
-	//{
-	//	StopAllCoroutines();
-	//	GameSetup.EndOfRound -= EndOfRoundDestroy;
-	//	Destroy(gameObject);
-	//}
 
 
 	//public void ChangeToAllyMaterial()
