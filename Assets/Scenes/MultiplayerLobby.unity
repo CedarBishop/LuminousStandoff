@@ -1429,12 +1429,12 @@ PrefabInstance:
     - target: {fileID: 2446011747868950007, guid: 8b73235117f5a3649abe6a63af366820,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12
+      value: 18.44
       objectReference: {fileID: 0}
     - target: {fileID: 2446011747868950007, guid: 8b73235117f5a3649abe6a63af366820,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.14
       objectReference: {fileID: 0}
     - target: {fileID: 2446011747868950007, guid: 8b73235117f5a3649abe6a63af366820,
         type: 3}
@@ -3420,7 +3420,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
         type: 3}
+      propertyPath: smallHealthPickups.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
       propertyPath: healthPickups.Array.data[0]
+      value: 
+      objectReference: {fileID: 1401269388}
+    - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
+      propertyPath: isInLobby
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
+      propertyPath: largeHealthPickups.Array.data[0]
       value: 
       objectReference: {fileID: 1401269388}
     - target: {fileID: 5143463932986864357, guid: 49229cb4e52c12e4987068e983971cc8,

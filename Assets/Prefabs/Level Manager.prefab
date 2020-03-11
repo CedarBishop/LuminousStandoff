@@ -50,8 +50,16 @@ MonoBehaviour:
   - {fileID: 5143463934188390718}
   - {fileID: 5143463932986864357}
   requiredRoundsToWinMatch: 3
-  healthPickups: []
-  healthPickupRespawnTime: 5
+  roundTime: 60
+  intermissionTime: 15
+  isInLobby: 0
+  smallHealthPickups:
+  - {fileID: 0}
+  - {fileID: 0}
+  smallHealthPickupRespawnTime: 5
+  largeHealthPickups:
+  - {fileID: 0}
+  timeBeforeLargePickupsSpawn: 40
 --- !u!114 &8913365263029926577
 MonoBehaviour:
   m_ObjectHideFlags: 0

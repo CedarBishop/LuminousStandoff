@@ -6,9 +6,10 @@ using Photon.Realtime;
 
 public class HealthPickup : MonoBehaviour
 {
-    public int replenishAmount; 
+    [Range(0.0f,1.0f)]public float replenishAmountPercentage; 
     [HideInInspector] public int pickupIndex;
     PlayerCombat player;
+    public bool respawns;
 
 
     private void OnTriggerEnter(Collider other)
@@ -17,10 +18,12 @@ public class HealthPickup : MonoBehaviour
         {
             player = other.gameObject.GetComponentInParent<PlayerCombat>();
             
-            player.ReplenishHealth(replenishAmount);
-            LevelManager.instance.OnHealthPickup(pickupIndex);
-                        
-           
+            player.ReplenishHealth(replenishAmountPercentage);
+            
+            if (respawns)
+            {
+                LevelManager.instance.OnHealthPickup(pickupIndex);
+            }                                 
         }
     }
 }

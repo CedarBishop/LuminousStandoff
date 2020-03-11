@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (isInLobby) // if in lobby dont use timer
+		if (LevelManager.instance.isInLobby) // if in lobby dont use timer
 		{
 			roundTimerText.text = "";
 			return;
@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
 
 	public void StartRoundTimer()
 	{
-		roundTimer = startingRoundTime;
+		roundTimer = LevelManager.instance.roundTime;
 		roundTimerText.text = roundTimer.ToString("F1");
 		roundIsUnderway = true;
 		isRoundIntermission = false;
@@ -339,7 +339,7 @@ public class GameManager : MonoBehaviour
 	void Intermission()
 	{
 
-		roundTimer = 3;
+		roundTimer = LevelManager.instance.intermissionTime;
 		isRoundIntermission = true;
 		roundIsUnderway = false;
 		roundTimerText.text = "";
@@ -351,20 +351,14 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
-		if (avatarSetups.Length == 1)
+		for (int i = 0; i < avatarSetups.Length; i++)
 		{
-			avatarSetups[0].DisableControls();
-		}
-		else
-		{
-			for (int i = 0; i < avatarSetups.Length; i++)
+			if (avatarSetups[i].GetComponent<PhotonView>().IsMine)
 			{
-				if (avatarSetups[i].GetComponent<PhotonView>().IsMine)
-				{
-					avatarSetups[i].DisableControls();
-				}
+				avatarSetups[i].DisableControls();
 			}
 		}
+		
 	}
 
 

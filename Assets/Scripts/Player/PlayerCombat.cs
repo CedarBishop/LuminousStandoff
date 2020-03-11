@@ -132,10 +132,12 @@ public class PlayerCombat : MonoBehaviour
 		}
 	}
 
-	public void ReplenishHealth(int amount)
+	public void ReplenishHealth(float percentage)
 	{
 		if (GameManager.instance != null)
 		{
+			int amount = Mathf.RoundToInt((100 - health) * percentage);
+
 			health += amount;
 			if (health > 100)
 			{
