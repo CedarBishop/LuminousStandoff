@@ -61,10 +61,10 @@ public class GameManager : MonoBehaviour
         rightJoystick.gameObject.SetActive(true);
 		abilityButton.gameObject.SetActive(true);
 #elif UNITY_EDITOR || UNITY_STANDALONE
-		// TODO: Replace PC controls
-		// leftJoystick.gameObject.SetActive(false);
-		// rightJoystick.gameObject.SetActive(false);
-		// abilityButton.gameObject.SetActive(false);
+	
+		 leftJoystick.gameObject.SetActive(false);
+		 rightJoystick.gameObject.SetActive(false);
+		 abilityButton.gameObject.SetActive(false);
 #endif
 	}
 
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 		players = PhotonNetwork.PlayerList;
 		roundNumber = 1;
 
-		// Insatiate the UI Group for each player and initialize with room number
+		// Instantiate the UI Group for each player and initialize with room number
 		for (int i = 0; i < players.Length; i++)
 		{
 			PlayerStats stats = Instantiate(statsPrefab, layoutGroup.transform);
