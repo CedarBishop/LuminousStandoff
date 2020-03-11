@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 4357997688448584931}
   - component: {fileID: 4291073926310669286}
   - component: {fileID: 4843723321832763976}
+  - component: {fileID: 1214459529451600400}
   m_Layer: 0
   m_Name: Player Avatar
   m_TagString: Untagged
@@ -270,6 +271,40 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &1214459529451600400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357997688448584933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca094d539b67ef45884008a10176fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passiveSkills: 4
+  activeSkills: 5
+  passiveAbilities:
+  - {fileID: 11400000, guid: 813cb504835c80f4caa1334ebc79614c, type: 2}
+  - {fileID: 11400000, guid: 9ee82e0980cb7284b8668f0da7996c31, type: 2}
+  - {fileID: 11400000, guid: 3dfa4384aa611cd4892162d52aab926b, type: 2}
+  - {fileID: 11400000, guid: ce41f8f8686c7a64893ad362dfaa887b, type: 2}
+  - {fileID: 11400000, guid: 530b5c4b07ab3cc4785f86ce9578798b, type: 2}
+  activeAbilities:
+  - {fileID: 11400000, guid: 1d8470947999329478d87df869d0860a, type: 2}
+  - {fileID: 11400000, guid: 41b161e4a1a88ee458142fb84f649322, type: 2}
+  - {fileID: 11400000, guid: 0e8557e4c95019849b69703f1705ef1b, type: 2}
+  - {fileID: 11400000, guid: 8a72c748af633864cae9d7e31fe76e5a, type: 2}
+  - {fileID: 11400000, guid: 2bb041288c6e2e24d9fbb714b9247c4b, type: 2}
+  cooldownComplete: 1
+  originalMaterial: {fileID: 0}
+  speedIncreasePercentage: 0
+  maxMovementSpeed: 0
+  maxBulletBounces: 0
+  stealthMaterial: {fileID: 0}
+  stealthActiveMaterial: {fileID: 0}
+  shieldEffect: {fileID: 0}
 --- !u!1 &8049877992989469647
 GameObject:
   m_ObjectHideFlags: 0
