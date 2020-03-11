@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
 
 	public static event Action DestroySkillButtons;
 
-
 	public static event Action OnActionButton;
 
 	// Make Script Singleton
@@ -120,7 +119,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					//SpawnSkillSelectionButtons();
+					SpawnSkillSelectionButtons();
 				}
 
 				//Start Intermission between rounds
@@ -153,7 +152,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					//SpawnSkillSelectionButtons();
+					SpawnSkillSelectionButtons();
 				}
 
 				Intermission();
@@ -204,13 +203,16 @@ public class GameManager : MonoBehaviour
 		{
 			if (roundTimer <= 0)
 			{
-				if (PhotonNetwork.IsMasterClient)
-				{
-					roundIsUnderway = false;
-					isRoundIntermission = false;
-					photonView.RPC("RPC_RoundDraw", RpcTarget.All);
-					print("Stopped timer");
-				}
+				roundIsUnderway = false;
+				isRoundIntermission = false;
+				RPC_RoundDraw();
+				//if (PhotonNetwork.IsMasterClient)
+				//{
+				//	roundIsUnderway = false;
+				//	isRoundIntermission = false;
+				//	photonView.RPC("RPC_RoundDraw", RpcTarget.All);
+				//	print("Stopped timer");
+				//}
 			}
 			else
 			{
@@ -222,12 +224,14 @@ public class GameManager : MonoBehaviour
 		{
 			if (roundTimer <= 0)
 			{
-				if (PhotonNetwork.IsMasterClient)
-				{
-					isRoundIntermission = false;
-					RPC_StartNewRound();
-					photonView.RPC("RPC_StartNewRound", RpcTarget.Others);
-				}
+				isRoundIntermission = false;
+				RPC_StartNewRound();
+				//if (PhotonNetwork.IsMasterClient)
+				//{
+				//	isRoundIntermission = false;
+				//	RPC_StartNewRound();
+				//	photonView.RPC("RPC_StartNewRound", RpcTarget.Others);
+				//}
 			}
 			else
 			{
