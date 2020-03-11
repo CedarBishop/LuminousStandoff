@@ -438,7 +438,6 @@ GameObject:
   - component: {fileID: 6223093683257824194}
   - component: {fileID: 6223093683257824193}
   - component: {fileID: 6223093683257824192}
-  - component: {fileID: 6223093683257824196}
   - component: {fileID: 7804132430919226554}
   m_Layer: 5
   m_Name: Rahil Shop Menu
@@ -533,31 +532,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6223093683257824196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6223093683257824207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbd4337ebe9272468906b01834bff3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uIGroupPrefab: {fileID: 8088039769243880143, guid: 795895b1b47402043b71312aca025af8,
-    type: 3}
-  layoutGroup: {fileID: 6223093683232866063}
-  winText: {fileID: 0}
-  leftJoystick: {fileID: 0}
-  rightJoystick: {fileID: 0}
-  roundTimerText: {fileID: 0}
-  startingRoundTime: 20
-  isInLobby: 0
-  skillSelectionParent: {fileID: 0}
-  passiveSkillLayout: {fileID: 0}
-  activeSkillLayout: {fileID: 0}
-  skillButtonPrefab: {fileID: 0}
 --- !u!114 &7804132430919226554
 MonoBehaviour:
   m_ObjectHideFlags: 0

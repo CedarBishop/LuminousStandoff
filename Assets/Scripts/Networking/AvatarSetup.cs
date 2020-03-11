@@ -34,6 +34,7 @@ public class AvatarSetup : MonoBehaviour
         GameManager.instance.ClearWinText();
         characterValue = characterNum;
         character = Instantiate(PlayerInfo.playerInfo.allCharacters[characterValue], new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, transform);
+        character.name = character.name + " Model";
     }
 
     public void Die()

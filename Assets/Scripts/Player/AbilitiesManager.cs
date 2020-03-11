@@ -19,10 +19,13 @@ public class AbilitiesManager : MonoBehaviour
 	public Ability[] passiveAbilities;	 						// Where ALL PASSIVE abilities objects live
 	public Ability[] activeAbilities; 							// Where ALL ACTIVE abilities objects live
 
-	private PhotonView PV;
+	public delegate void AbilityButton();
+	public static AbilityButton buttonClickDelegate;
 
 	private delegate void AbilityDelegate();
 	private AbilityDelegate methodToCall = null;
+
+	private PhotonView PV;
 
 	[Header("Action Button Tracking")]
 	public bool cooldownComplete = true; 						// Waiting for skill cooldown? (True by default - implies skill is ready)
@@ -51,11 +54,8 @@ public class AbilitiesManager : MonoBehaviour
 		PV = GetComponent<PhotonView>();
 		movementSpeed = GetComponent<PlayerMovement>().movementSpeed;
 
-		abilityButton = GameObject.Find("ActivateAbility");
-		if (abilityButton)
-		{
-			abilityButton.SetActive(true);
-		}
+		// Add method as delegate to ability UI button
+		AbilityInitiate.OnAbilityClick += ActivateAbility;
 
 		// revertMaterial = originalMaterial.GetComponent<Material>();
 		//revertMaterial = originalMaterial.GetComponent<MeshRenderer>().materials[0]; // TODO: Remove! This is only for ghost example prefab
@@ -187,20 +187,30 @@ public class AbilitiesManager : MonoBehaviour
 		if (PV.IsMine)
 		{
 			if (currentMaterial != stealthActiveMaterial)
+			{
 				currentMaterial = stealthActiveMaterial;
+				originalMaterial.GetComponentInChildren<SkinnedMeshRenderer>().castShadows = false; // TODO: Adapt to character accordingly (uses a SkinnedMeshRenderer instead of MeshRenderer)
+			}
 			else
+			{
 				currentMaterial = revertMaterial;
-
-			originalMaterial.GetComponentInChildren<MeshRenderer>().materials[0] = currentMaterial;
+				originalMaterial.GetComponentInChildren<SkinnedMeshRenderer>().castShadows = true; // TODO: Adapt to character accordingly (uses a SkinnedMeshRenderer instead of MeshRenderer)
+			}
 		}
 		else
 		{
 			if (currentMaterial != stealthMaterial)
+			{
 				currentMaterial = stealthMaterial;
+				originalMaterial.GetComponentInChildren<SkinnedMeshRenderer>().castShadows = false; // TODO: Adapt to character accordingly (uses a SkinnedMeshRenderer instead of MeshRenderer)
+			}
 			else
+			{
 				currentMaterial = revertMaterial;
+				originalMaterial.GetComponentInChildren<SkinnedMeshRenderer>().castShadows = true; // TODO: Adapt to character accordingly (uses a SkinnedMeshRenderer instead of MeshRenderer)
+			}
 
-			originalMaterial.GetComponentInChildren<MeshRenderer>().materials[0] = currentMaterial;
+			originalMaterial.GetComponentInChildren<SkinnedMeshRenderer>().materials[0] = currentMaterial;
 		}
 	}
 
