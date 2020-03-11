@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4843817032a8d45879b29258acda38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 500
+  movementSpeed: 400
 --- !u!114 &4357997688448584929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +163,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4357997688448584957}
     m_Modifications:
+    - target: {fileID: 19169142445779249, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 19169142445779251, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
         type: 3}
       propertyPath: m_LocalPosition.x

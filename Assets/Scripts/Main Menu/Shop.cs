@@ -15,27 +15,19 @@ public class Shop : MonoBehaviour
     void Start()
     {
         currency = GetComponent<Currency>();
-        for (int i = 0; i < shopItems.Length; i++)
-        {
-            if (PlayerPrefs.HasKey(shopItems[i].itemKey))
-            {
-                shopItems[i].itemButton.interactable = (PlayerPrefs.GetInt(shopItems[i].itemKey) == 1)? false : true;
-            }
-            string str = (shopItems[i].requiresPassion)? " Passion" : " Gold";
-            shopItems[i].itemText.text = shopItems[i].itemKey + "\n" + shopItems[i].itemPrice.ToString() + str;
-        }
+        InitShop();
 
     }
 
 
-    public void BuyItem (int itemNumber)
+    public void BuyItem(int itemNumber)
     {
         if (shopItems[itemNumber].requiresPassion)
         {
             //price is in passion
             if (currency.SpendPassion(shopItems[itemNumber].itemPrice))
             {
-                PlayerPrefs.SetInt(shopItems[itemNumber].itemKey,1);
+                PlayerPrefs.SetInt(shopItems[itemNumber].itemKey, 1);
                 shopItems[itemNumber].itemButton.interactable = false;
             }
         }
@@ -46,25 +38,23 @@ public class Shop : MonoBehaviour
             {
                 PlayerPrefs.SetInt(shopItems[itemNumber].itemKey, 1);
                 shopItems[itemNumber].itemButton.interactable = false;
-                
+
             }
         }
     }
 
-    private void Update()
+    public void InitShop ()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        for (int i = 0; i < shopItems.Length; i++)
         {
-            for (int i = 0; i < shopItems.Length; i++)
+            if (PlayerPrefs.HasKey(shopItems[i].itemKey))
             {
-                if (PlayerPrefs.HasKey(shopItems[i].itemKey))
-                {
-                    PlayerPrefs.SetInt(shopItems[i].itemKey, 0);
-                }
+                shopItems[i].itemButton.interactable = (PlayerPrefs.GetInt(shopItems[i].itemKey) == 1) ? false : true;
             }
+            string str = (shopItems[i].requiresPassion) ? " Passion" : " Gold";
+            shopItems[i].itemText.text = shopItems[i].itemKey + "\n" + shopItems[i].itemPrice.ToString() + str;
         }
     }
-
 }
 
 [System.Serializable]
