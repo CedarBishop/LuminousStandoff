@@ -479,10 +479,9 @@ GameObject:
   - component: {fileID: 6223093683257824194}
   - component: {fileID: 6223093683257824193}
   - component: {fileID: 6223093683257824192}
-  - component: {fileID: 6223093683257824196}
   - component: {fileID: 7804132430919226554}
   m_Layer: 5
-  m_Name: Rahill Multiplayer Game Canvas
+  m_Name: Rahil Multiplayer Game Canvas 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,31 +572,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6223093683257824196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6223093683257824207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbd4337ebe9272468906b01834bff3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uIGroupPrefab: {fileID: 8088039769243880143, guid: 795895b1b47402043b71312aca025af8,
-    type: 3}
-  layoutGroup: {fileID: 6223093683232866063}
-  winText: {fileID: 6223093683460623581}
-  leftJoystick: {fileID: 9149649599546811463}
-  rightJoystick: {fileID: 9149649599454072659}
-  roundTimerText: {fileID: 3352427702413237987}
-  startingRoundTime: 20
-  isInLobby: 0
-  skillSelectionParent: {fileID: 0}
-  passiveSkillLayout: {fileID: 0}
-  activeSkillLayout: {fileID: 0}
-  skillButtonPrefab: {fileID: 0}
 --- !u!114 &7804132430919226554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,18 +894,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
---- !u!114 &9149649599454072659 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
-    type: 3}
-  m_PrefabInstance: {fileID: 6223093683950550700}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9149649599454072670 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
@@ -1092,18 +1054,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
---- !u!114 &9149649599546811463 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
-    type: 3}
-  m_PrefabInstance: {fileID: 6223093684042225080}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9149649599546811466 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
