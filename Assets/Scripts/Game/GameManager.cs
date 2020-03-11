@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 	int roundNumber = 1;
 	public FixedJoystick leftJoystick;
 	public FixedJoystick rightJoystick;
+	public Button abilityButton;
 	public Text roundTimerText;
 	public float startingRoundTime;
 	float roundTimer;
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
 					{
 						EarnPassion(true);
 					}
-					else 
+					else
 					{
 						EarnPassion(false);
 					}
@@ -261,7 +262,7 @@ public class GameManager : MonoBehaviour
 			DestroySkillButtons();
 		}
 
-		
+
 		AvatarSetup[] avatarSetups = FindObjectsOfType<AvatarSetup>();
 		for (int i = 0; i < avatarSetups.Length; i++)
 		{
