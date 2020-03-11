@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance = null;
 
-	public static System.Action roundDrawEvent;
+	public static event Action roundDrawEvent;
 
 	PhotonView photonView;
 
@@ -38,8 +39,10 @@ public class GameManager : MonoBehaviour
 	bool hasSelectedPassive;
 	bool hasSelectedAction;
 
-	public static System.Action DestroySkillButtons;
+	public static event Action DestroySkillButtons;
 
+
+	public static event Action OnActionButton;
 
 	// Make Script Singleton
 	private void Awake()
@@ -87,21 +90,14 @@ public class GameManager : MonoBehaviour
 		StartRoundTimer();
 	}
 
-	// Function that is called from player combat to
-	//public void HealthUpdate(int health, int dyingPlayerNumber, int sendingPlayerNumber )
-	//{
-	//	playerStats[dyingPlayerNumber - 1].SetHealth(health);
-	//	if (health <= 0)
-	//	{
-	//		PlayerDied(dyingPlayerNumber,sendingPlayerNumber);
-	//	}
-	//}
-
+	// Called when a player dies
 	public void PlayerDied(int dyingPlayerNumber, int sendingPlayerNumber)
 	{
 		string displayText = "";
+		//player two dies
 		if (dyingPlayerNumber == 2)
 		{
+			//player one wins the match
 			displayText = "Player One Wins The Round ";
 			if (playerStats[0].IncrementRoundWins())
 			{
@@ -119,6 +115,7 @@ public class GameManager : MonoBehaviour
 				}
 				StartCoroutine("CoEndMatch");
 			}
+			//player one wins the round but not the match
 			else
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
@@ -126,12 +123,15 @@ public class GameManager : MonoBehaviour
 					//SpawnSkillSelectionButtons();
 				}
 
+				//Start Intermission between rounds
 				Intermission();
 			}
 		}
+		//player one dies
 		else
 		{
 			displayText = "Player Two Wins The Round ";
+			//player two wins the match
 			if (playerStats[1].IncrementRoundWins())
 			{
 				if (int.TryParse(PhotonNetwork.NickName, out int num))
@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviour
 				displayText = "Player Two Wins";
 				StartCoroutine("CoEndMatch");
 			}
+			//player two wins the round but not the match
 			else
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		print(displayText);
-
+		//Display text of who won the round or match
 		winText.text = displayText;
 	}
 
@@ -194,7 +195,7 @@ public class GameManager : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (isInLobby)
+		if (isInLobby) // if in lobby dont use timer
 		{
 			roundTimerText.text = "";
 			return;
@@ -423,6 +424,14 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			PlayerInfo.playerInfo.passionEarnedThisMatch = 5;
+		}
+	}
+
+	public void ActionButton ()
+	{
+		if (OnActionButton != null)
+		{
+			OnActionButton();
 		}
 	}
 }
