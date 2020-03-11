@@ -31,18 +31,18 @@ public class SkillButton : MonoBehaviour
 
     void Start()
     {
-        UIManager.DestroySkillButtons += () => Destroy(gameObject);
+        GameManager.DestroySkillButtons += () => Destroy(gameObject);
     }
 
     private void OnDestroy()
     {
-        UIManager.DestroySkillButtons -= () => Destroy(gameObject);
+        GameManager.DestroySkillButtons -= () => Destroy(gameObject);
 
     }
 
     public void ChooseSkill ()
     {
-        UIManager.instance.SkillSelectButton(isPassive,skillNumber);
+        GameManager.instance.SkillSelectButton(isPassive,skillNumber);
     }
 
     

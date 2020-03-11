@@ -391,17 +391,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6223093683257824207}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbd4337ebe9272468906b01834bff3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 966e4d31b9e90774ebd264bb8d9cd819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIGroupPrefab: {fileID: 8088039769243880143, guid: 795895b1b47402043b71312aca025af8,
+  statsPrefab: {fileID: 8088039769243880143, guid: 795895b1b47402043b71312aca025af8,
     type: 3}
   layoutGroup: {fileID: 6223093683232866063}
   winText: {fileID: 6223093683460623581}
   leftJoystick: {fileID: 30568687592780489}
   rightJoystick: {fileID: 6648561049468274320}
   roundTimerText: {fileID: 3352427702413237987}
-  startingRoundTime: 20
+  startingRoundTime: 60
   isInLobby: 0
   skillSelectionParent: {fileID: 7941717872379553906}
   passiveSkillLayout: {fileID: 6093878332693596661}

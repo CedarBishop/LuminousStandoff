@@ -43,5 +43,6 @@ MonoBehaviour:
   - RPC_UpdateHealth
   - RPC_SpawnHealthPickup
   - RPC_OnHealthPickup
+  - RPC_PlayerDeath
   DisableAutoOpenWizard: 1
   ShowSettings: 1
