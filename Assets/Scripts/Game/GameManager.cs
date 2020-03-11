@@ -13,22 +13,22 @@ public class GameManager : MonoBehaviour
 
 	public static event Action roundDrawEvent;
 
-	PhotonView photonView;
+	private PhotonView photonView;
 
 	public PlayerStats statsPrefab;
 	public LayoutGroup layoutGroup;
 	private Player[] players;
 	private List<PlayerStats> playerStats = new List<PlayerStats>();
 	public Text winText;
-	int roundNumber = 1;
+	private int roundNumber = 1;
 	public FixedJoystick leftJoystick;
 	public FixedJoystick rightJoystick;
 	public Button abilityButton;
 	public Text roundTimerText;
 	public float startingRoundTime;
-	float roundTimer;
-	bool roundIsUnderway;
-	bool isRoundIntermission;
+	private float roundTimer;
+	private bool roundIsUnderway;
+	private bool isRoundIntermission;
 
 	public bool isInLobby;
 
@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
 	public GameObject activeSkillLayout;
 	public GameObject skillButtonPrefab;
 
-	bool hasSelectedPassive;
-	bool hasSelectedAction;
+	private bool hasSelectedPassive;
+	private bool hasSelectedAction;
 
 	public static event Action DestroySkillButtons;
 
@@ -59,9 +59,12 @@ public class GameManager : MonoBehaviour
 #if UNITY_IPHONE || UNITY_ANDROID || UNITY_WEBGL
 		leftJoystick.gameObject.SetActive(true);
         rightJoystick.gameObject.SetActive(true);
+		abilityButton.gameObject.SetActive(true);
 #elif UNITY_EDITOR || UNITY_STANDALONE
-		leftJoystick.gameObject.SetActive(false);
-		rightJoystick.gameObject.SetActive(false);
+		// TODO: Replace PC controls
+		// leftJoystick.gameObject.SetActive(false);
+		// rightJoystick.gameObject.SetActive(false);
+		// abilityButton.gameObject.SetActive(false);
 #endif
 	}
 

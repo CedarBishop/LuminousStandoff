@@ -302,9 +302,9 @@ MonoBehaviour:
   speedIncreasePercentage: 0
   maxMovementSpeed: 0
   maxBulletBounces: 0
-  stealthMaterial: {fileID: 0}
+  stealthMaterial: {fileID: 2100000, guid: ba06da8ab9ee3c84e9bac6faa492cdaf, type: 2}
   stealthActiveMaterial: {fileID: 0}
-  shieldEffect: {fileID: 0}
+  shieldEffect: {fileID: 1651260806888081699}
 --- !u!1 &8049877992989469647
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,13 +445,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19169142445779251, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19169142445779251, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19169142445779251, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 19169142445779263, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
         type: 3}
       propertyPath: m_Name
       value: ShieldEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 19169142445779263, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d6e1c4fc59a40645a52cf5a86bbd215, type: 3}
+--- !u!1 &1651260806888081699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 19169142445779263, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
+    type: 3}
+  m_PrefabInstance: {fileID: 1634365551263866908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1651260806888081711 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 19169142445779251, guid: 0d6e1c4fc59a40645a52cf5a86bbd215,
