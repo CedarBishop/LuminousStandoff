@@ -6,18 +6,18 @@ using Photon.Pun;
 using Photon.Realtime;
 
 
-public class UIManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-	public static UIManager instance = null;
+	public static GameManager instance = null;
 
 	public static System.Action roundDrawEvent;
 
 	PhotonView photonView;
 
-	public UIGroup uIGroupPrefab;
+	public PlayerStats statsPrefab;
 	public LayoutGroup layoutGroup;
 	private Player[] players;
-	private List<UIGroup> uIGroups = new List<UIGroup>();
+	private List<PlayerStats> playerStats = new List<PlayerStats>();
 	public Text winText;
 	int roundNumber = 1;
 	public FixedJoystick leftJoystick;
@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
 	bool hasSelectedAction;
 
 	public static System.Action DestroySkillButtons;
+
 
 	// Make Script Singleton
 	private void Awake()
@@ -72,13 +73,13 @@ public class UIManager : MonoBehaviour
 		// Insatiate the UI Group for each player and initialize with room number
 		for (int i = 0; i < players.Length; i++)
 		{
-			UIGroup uI = Instantiate(uIGroupPrefab, layoutGroup.transform);
-			uIGroups.Add(uI);
-			uI.SetPlayerNumber(i + 1);
+			PlayerStats stats = Instantiate(statsPrefab, layoutGroup.transform);
+			playerStats.Add(stats);
+			stats.SetPlayerNumber(i + 1);
 
 			if (i == 0)
 			{
-				uI.transform.SetAsFirstSibling();
+				stats.transform.SetAsFirstSibling();
 			}
 		}
 
@@ -87,31 +88,31 @@ public class UIManager : MonoBehaviour
 	}
 
 	// Function that is called from player combat to
-	public void HealthUpdate(int health, int playerNumber)
-	{
-		uIGroups[playerNumber - 1].SetHealth(health);
-		if (health <= 0)
-		{
-			DisplayWinText(playerNumber);
-		}
-	}
+	//public void HealthUpdate(int health, int dyingPlayerNumber, int sendingPlayerNumber )
+	//{
+	//	playerStats[dyingPlayerNumber - 1].SetHealth(health);
+	//	if (health <= 0)
+	//	{
+	//		PlayerDied(dyingPlayerNumber,sendingPlayerNumber);
+	//	}
+	//}
 
-	public void DisplayWinText(int playerNumber)
+	public void PlayerDied(int dyingPlayerNumber, int sendingPlayerNumber)
 	{
 		string displayText = "";
-		if (playerNumber == 2)
+		if (dyingPlayerNumber == 2)
 		{
 			displayText = "Player One Wins The Round ";
-			if (uIGroups[0].IncrementRoundWins())
+			if (playerStats[0].IncrementRoundWins())
 			{
 				displayText = "Player One Wins";
 				if (int.TryParse(PhotonNetwork.NickName, out int num))
 				{
-					if (num == 1)
+					if (dyingPlayerNumber != sendingPlayerNumber)
 					{
 						EarnPassion(true);
 					}
-					else if (num == 2)
+					else 
 					{
 						EarnPassion(false);
 					}
@@ -120,12 +121,9 @@ public class UIManager : MonoBehaviour
 			}
 			else
 			{
-				if (int.TryParse(PhotonNetwork.NickName, out int num))
+				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					if (num == 2)
-					{
-						//SpawnSkillSelectionButtons();
-					}
+					//SpawnSkillSelectionButtons();
 				}
 
 				Intermission();
@@ -134,17 +132,17 @@ public class UIManager : MonoBehaviour
 		else
 		{
 			displayText = "Player Two Wins The Round ";
-			if (uIGroups[1].IncrementRoundWins())
+			if (playerStats[1].IncrementRoundWins())
 			{
 				if (int.TryParse(PhotonNetwork.NickName, out int num))
 				{
-					if (num == 1)
-					{
-						EarnPassion(false);
-					}
-					else if (num == 2)
+					if (dyingPlayerNumber != sendingPlayerNumber)
 					{
 						EarnPassion(true);
+					}
+					else
+					{
+						EarnPassion(false);
 					}
 				}
 				displayText = "Player Two Wins";
@@ -152,12 +150,9 @@ public class UIManager : MonoBehaviour
 			}
 			else
 			{
-				if (int.TryParse(PhotonNetwork.NickName, out int num))
+				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					if (num == 1)
-					{
-						//SpawnSkillSelectionButtons();
-					}
+					//SpawnSkillSelectionButtons();
 				}
 
 				Intermission();
@@ -276,20 +271,20 @@ public class UIManager : MonoBehaviour
 	void RPC_RoundDraw()
 	{
 		print("RPC_RoundDraw");
-		if (uIGroups.Count >= 2)
+		if (playerStats.Count >= 2)
 		{
 			// Increment both players and check if have caused a tie break
-			uIGroups[0].IncrementRoundWins();
-			uIGroups[1].IncrementRoundWins();
+			playerStats[0].IncrementRoundWins();
+			playerStats[1].IncrementRoundWins();
 
-			if (uIGroups[0].roundWins >= LevelManager.instance.requiredRoundsToWinMatch &&
-			    uIGroups[1].roundWins >= LevelManager.instance.requiredRoundsToWinMatch)
+			if (playerStats[0].roundWins >= LevelManager.instance.requiredRoundsToWinMatch &&
+			    playerStats[1].roundWins >= LevelManager.instance.requiredRoundsToWinMatch)
 			{
 				// tie break, go to sudden death
 				roundTimerText.text = "";
 			}
 
-			else if (uIGroups[0].roundWins >= LevelManager.instance.requiredRoundsToWinMatch)
+			else if (playerStats[0].roundWins >= LevelManager.instance.requiredRoundsToWinMatch)
 			{
 				// Player 1 wins match
 				if (int.TryParse(PhotonNetwork.NickName, out int num))
@@ -306,7 +301,7 @@ public class UIManager : MonoBehaviour
 				winText.text = "Player One Wins";
 				StartCoroutine("CoEndMatch");
 			}
-			else if (uIGroups[1].roundWins >= LevelManager.instance.requiredRoundsToWinMatch)
+			else if (playerStats[1].roundWins >= LevelManager.instance.requiredRoundsToWinMatch)
 			{
 				// Player Two wins match
 				if (int.TryParse(PhotonNetwork.NickName, out int num))

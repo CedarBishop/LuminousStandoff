@@ -130,7 +130,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
-        UIManager.instance.PlayerForfeited(int.Parse(PhotonNetwork.NickName));
+        GameManager.instance.PlayerForfeited(int.Parse(PhotonNetwork.NickName));
         print(otherPlayer.NickName + " has left the game");
         playersInRoom--;
     }

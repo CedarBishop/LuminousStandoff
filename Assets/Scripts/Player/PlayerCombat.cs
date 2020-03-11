@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
-
+using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour
 {
 	public int health;
@@ -17,6 +16,7 @@ public class PlayerCombat : MonoBehaviour
 	public float fireRate = 0.1f;
 	Vector3 joystickDirection;
 	bool canShoot;
+	public Image healthBar;
 
 	void Start()
 	{
@@ -34,6 +34,8 @@ public class PlayerCombat : MonoBehaviour
 		joystickDirection = Vector3.forward;
 		transform.forward = joystickDirection;
 		canShoot = true;
+
+		healthBar.fillAmount = 1.0f;
 	}
 #if UNITY_ANDROID || UNITY_IPHONE || UNITY_WEBGL
 	void Update()
@@ -118,11 +120,11 @@ public class PlayerCombat : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
-		if (UIManager.instance != null)
+		if (GameManager.instance != null)
 		{
 			health -= damage;
 			photonView.RPC("RPC_UpdateHealth", RpcTarget.All, health, roomNumber);
-			print(roomNumber.ToString() + " is on " + health + " health");
+			//print(roomNumber.ToString() + " is on " + health + " health");
 			if (health <= 0)
 			{
 				GetComponent<AvatarSetup>()?.Die();
@@ -132,7 +134,7 @@ public class PlayerCombat : MonoBehaviour
 
 	public void ReplenishHealth(int amount)
 	{
-		if (UIManager.instance != null)
+		if (GameManager.instance != null)
 		{
 			health += amount;
 			if (health > 100)
@@ -140,14 +142,21 @@ public class PlayerCombat : MonoBehaviour
 				health = 100;
 			}
 			photonView.RPC("RPC_UpdateHealth", RpcTarget.All, health, roomNumber);
-			print(roomNumber.ToString() + " is on " + health + " health");
+			//print(roomNumber.ToString() + " is on " + health + " health");
 		}
 	}
 
 	[PunRPC]
 	void RPC_UpdateHealth(int health, int playerNumber)
 	{
-		UIManager.instance.HealthUpdate(health, playerNumber);
+		//GameManager.instance.HealthUpdate(health, playerNumber);
+		float fillAmount = health / 100.0f;
+		healthBar.fillAmount = fillAmount;
+		if (health <= 0)
+		{
+			GameManager.instance.PlayerDied(playerNumber,roomNumber);
+		}
+
 	}
 
 	public void ResetHealth()
