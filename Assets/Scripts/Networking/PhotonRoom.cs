@@ -63,7 +63,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     void RPC_TellMasterToStartGame()
     {
-        gameScene = Random.Range(2, 3);
+        gameScene = Random.Range(2, 4);
         PhotonNetwork.LoadLevel(gameScene);
     }
 

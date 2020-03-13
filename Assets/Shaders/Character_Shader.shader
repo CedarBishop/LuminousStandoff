@@ -54,7 +54,6 @@
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
-                col *= i.uv;
                  col *= _EdgeColor;
                  col *= _Intensity;
                 // apply fog
