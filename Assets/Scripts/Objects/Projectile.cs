@@ -12,7 +12,8 @@ public class Projectile : MonoBehaviour
 	public float force;
 	[HideInInspector] public bool isMyProjectile;
 	Vector3 _direction;
-	//public Material allyMaterial;
+	public bool isDoubleDamage;
+	public Material allyMaterial;
 
 	[SerializeField]
 	private ParticleSystem sparks; // For when bouncing off walls
@@ -47,7 +48,7 @@ public class Projectile : MonoBehaviour
 			{
 				if (collision.GetComponentInParent<PhotonView>().IsMine)
 				{
-					collision.GetComponentInParent<PlayerCombat>().TakeDamage(damage);
+					collision.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2:damage);
 
 					print("hit by enemy");
 				}
@@ -68,9 +69,9 @@ public class Projectile : MonoBehaviour
 
 
 
-	//public void ChangeToAllyMaterial()
-	//{
-	//	GetComponent<MeshRenderer>().material = allyMaterial;
-		
-	//}
+	public void ChangeToAllyMaterial()
+	{
+		GetComponent<MeshRenderer>().material = allyMaterial;
+
+	}
 }

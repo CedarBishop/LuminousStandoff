@@ -110,7 +110,7 @@ public class PlayerCombat : MonoBehaviour
 				new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
 				transform.rotation
 			);
-			//bullet.ChangeToAllyMaterial();
+			bullet.ChangeToAllyMaterial();
 			bullet.isMyProjectile = true;
 
 			Destroy(bullet, 3);
@@ -126,9 +126,10 @@ public class PlayerCombat : MonoBehaviour
 	}
 
 	[PunRPC]
-	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion)
+	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion, bool isDoubleDamage)
 	{
 		Projectile bullet = Instantiate(bulletPrefab, origin, quaternion);
+		bullet.isDoubleDamage = isDoubleDamage;
 		bullet.isMyProjectile = false;
 	}
 

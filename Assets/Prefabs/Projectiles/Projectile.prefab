@@ -125,4 +125,6 @@ MonoBehaviour:
   damage: 10
   force: 500
   isMyProjectile: 0
+  isDoubleDamage: 0
+  allyMaterial: {fileID: 2100000, guid: 81a0b27a060042c42a4fb22dd39105a1, type: 2}
   sparks: {fileID: 0}
