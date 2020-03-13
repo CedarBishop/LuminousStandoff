@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_IPHONE || UNITY_ANDROID || UNITY_WEBGL
 		leftJoystick.gameObject.SetActive(true);
         rightJoystick.gameObject.SetActive(true);
-		abilityButton.gameObject.SetActive(true);
+		abilityButton.gameObject.SetActive(false);
 #elif UNITY_EDITOR || UNITY_STANDALONE
 	
 		 leftJoystick.gameObject.SetActive(false);
