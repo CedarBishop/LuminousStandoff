@@ -17,6 +17,7 @@ public class PlayerCombat : MonoBehaviour
 	Vector3 joystickDirection;
 	bool canShoot;
 	public Image healthBar;
+	bool isDoubleDamage;
 
 	void Start()
 	{
@@ -52,6 +53,19 @@ public class PlayerCombat : MonoBehaviour
 				Shoot();
 			}
 		}
+	}
+
+	private void OnEnable()
+	{
+		GameManager.OnDoubleDamage += ChangeBulletDamage;
+		isDoubleDamage = false;
+	}
+
+
+	private void OnDisable()
+	{
+		GameManager.OnDoubleDamage -= ChangeBulletDamage;
+		isDoubleDamage = false;
 	}
 
 
@@ -165,5 +179,10 @@ public class PlayerCombat : MonoBehaviour
 	{
 		health = 100;
 		photonView.RPC("RPC_UpdateHealth", RpcTarget.All, health, roomNumber);
+	}
+
+	void ChangeBulletDamage (bool DoubleDamage)
+	{
+		isDoubleDamage = DoubleDamage;
 	}
 }

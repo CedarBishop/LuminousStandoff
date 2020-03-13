@@ -25,12 +25,9 @@ public class GameManager : MonoBehaviour
 	public FixedJoystick rightJoystick;
 	public Button abilityButton;
 	public Text roundTimerText;
-	public float startingRoundTime;
 	private float roundTimer;
 	private bool roundIsUnderway;
 	private bool isRoundIntermission;
-
-	public bool isInLobby;
 
 	public GameObject skillSelectionParent;
 	public GameObject passiveSkillLayout;
@@ -43,6 +40,10 @@ public class GameManager : MonoBehaviour
 	public static event Action DestroySkillButtons;
 
 	public static event Action OnActionButton;
+
+	public static event Action<bool> OnDoubleDamage;
+
+	[HideInInspector] public bool isDoubleDamage;
 
 	// Make Script Singleton
 	private void Awake()
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					SpawnSkillSelectionButtons();
+					//SpawnSkillSelectionButtons();
 				}
 
 				//Start Intermission between rounds
@@ -156,7 +157,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					SpawnSkillSelectionButtons();
+					//SpawnSkillSelectionButtons();
 				}
 
 				Intermission();
@@ -205,6 +206,17 @@ public class GameManager : MonoBehaviour
 		}
 		if (roundIsUnderway)
 		{
+			if (roundTimer <= 20.0f)
+			{
+				if (isDoubleDamage == false)
+				{
+					isDoubleDamage = true;
+					if (OnDoubleDamage != null)
+					{
+						OnDoubleDamage(true);
+					}
+				}
+			}
 			if (roundTimer <= 0)
 			{
 				roundIsUnderway = false;
@@ -230,6 +242,7 @@ public class GameManager : MonoBehaviour
 			{
 				isRoundIntermission = false;
 				RPC_StartNewRound();
+
 				//if (PhotonNetwork.IsMasterClient)
 				//{
 				//	isRoundIntermission = false;
@@ -259,6 +272,10 @@ public class GameManager : MonoBehaviour
 		StartRoundTimer();
 		ClearWinText();
 
+		if (OnDoubleDamage != null)
+		{
+			OnDoubleDamage(false);
+		}
 
 		if (DestroySkillButtons != null)
 		{
