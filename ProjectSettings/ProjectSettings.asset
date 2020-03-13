@@ -746,10 +746,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: e054ce1f-8bfc-4891-b285-6a39e5c7e887
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: LuminousStandoff
+  organizationId: tonyetro
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

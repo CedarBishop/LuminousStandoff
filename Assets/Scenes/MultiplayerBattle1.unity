@@ -32556,6 +32556,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Multiplayer Game Canvas 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7804132430919226554, guid: e520dd842037b1a4488c97ce13434c28,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e520dd842037b1a4488c97ce13434c28, type: 3}
 --- !u!1001 &1522941655

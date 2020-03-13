@@ -53,7 +53,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         currentScene = scene.buildIndex;
-        if (currentScene == lobbyScene || currentScene == gameScene)
+        if (currentScene != 0)
         {
             CreatePlayer();
         }
@@ -63,7 +63,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     void RPC_TellMasterToStartGame()
     {
-        gameScene = Random.Range(2, 4);
+        gameScene = Random.Range(3, 4);
         PhotonNetwork.LoadLevel(gameScene);
     }
 
