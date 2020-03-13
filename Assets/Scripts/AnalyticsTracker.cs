@@ -1,18 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class AnalyticsTracker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private int someSecretId;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void TriggerEvent()
+	{
+		Analytics.CustomEvent(
+			"secret_found",
+			new Dictionary<string, object>
+			{
+				{ "secret_id", someSecretId },
+				{ "time_elapsed", Time.timeSinceLevelLoad }
+			}
+		);
+
+		Debug.Log("Custom triggered");
+		Destroy(gameObject);
+	}
 }
