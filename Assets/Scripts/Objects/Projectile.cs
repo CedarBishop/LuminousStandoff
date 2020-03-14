@@ -24,6 +24,7 @@ public class Projectile : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody>();
 		rigidbody.AddForce(force * transform.forward);
 		StartCoroutine("DelayedDestroy");
+		isDoubleDamage = GameManager.instance.isDoubleDamage;
 	}
 
 	IEnumerator DelayedDestroy()

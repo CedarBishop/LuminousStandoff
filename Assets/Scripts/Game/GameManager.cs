@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
 
 	public static event Action OnActionButton;
 
-	public static event Action<bool> OnDoubleDamage;
-
 	[HideInInspector] public bool isDoubleDamage;
 
 	// Make Script Singleton
@@ -211,10 +209,6 @@ public class GameManager : MonoBehaviour
 				if (isDoubleDamage == false)
 				{
 					isDoubleDamage = true;
-					if (OnDoubleDamage != null)
-					{
-						OnDoubleDamage(true);
-					}
 				}
 			}
 			if (roundTimer <= 0)
@@ -271,11 +265,6 @@ public class GameManager : MonoBehaviour
 	{
 		StartRoundTimer();
 		ClearWinText();
-
-		if (OnDoubleDamage != null)
-		{
-			OnDoubleDamage(false);
-		}
 
 		if (DestroySkillButtons != null)
 		{

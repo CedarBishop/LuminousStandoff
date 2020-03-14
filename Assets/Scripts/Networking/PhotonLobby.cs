@@ -10,6 +10,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public GameObject battleButton;
     public GameObject cancelButton;
     public PhotonRoom room;
+    public string roomNumberString;
 
     private void Awake()
     {
@@ -49,7 +50,14 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void OnBattleButtonClicked ()
     {
-        PhotonNetwork.JoinRandomRoom();
+        if (string.IsNullOrEmpty(roomNumberString))
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+        else
+        {
+            PhotonNetwork.JoinRoom(roomNumberString);
+        }
         battleButton.SetActive(false);
         cancelButton.SetActive(true);
     }
@@ -57,21 +65,19 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         print("failed to join random room");
-        CreateRoom();
+        PhotonRoom.photonRoom.CreateRoom();
     }
 
-    void CreateRoom()
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        print("Trying to create a new room");
-        int randomRoomName = Random.Range(0, 10000);
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 2 };
-        PhotonNetwork.CreateRoom("Room " + randomRoomName, roomOptions);
+        PhotonRoom.photonRoom.CreateRoom();
     }
+
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         print("Failed to create a new room");
-        CreateRoom();
+        PhotonRoom.photonRoom.CreateRoom();
     }
 
     public void OnCancelButtonClicked()

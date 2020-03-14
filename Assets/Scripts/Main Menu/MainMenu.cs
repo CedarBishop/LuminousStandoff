@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
     public Slider musicSlider;
     public Slider sfxSlider;
 
+    public InputField roomNumberInputField;
 
     private int characterNumber;
 
@@ -189,6 +190,12 @@ public class MainMenu : MonoBehaviour
             currentCharacterDisplayObjects[i].SetActive(false);
         }
         lockedCharacterDisplay.SetActive(false);
+    }
+
+    public void OnRoomCodeChange ()
+    {
+        PhotonRoom.photonRoom.roomNumberString = roomNumberInputField.text;
+        PhotonLobby.photonLobby.roomNumberString = roomNumberInputField.text;
     }
 
 }

@@ -23,6 +23,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public int myNumberInRoom;
     int maxPlayersInRoom = 2;
     public int playersInGame;
+    public string roomNumberString;
 
     private void Awake()
     {
@@ -119,12 +120,22 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     }
 
-    void CreateRoom()
+    public void CreateRoom()
     {
         print("Trying to create a new room");
-        int randomRoomName = UnityEngine.Random.Range(0, 10000);
+        string randomRoomName;
+        if (string.IsNullOrEmpty(roomNumberString))
+        {
+            int randomNum = UnityEngine.Random.Range(0, 10000);
+            randomRoomName = randomNum.ToString();
+        }
+        else
+        {
+            randomRoomName = roomNumberString;
+        }
+
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 2};
-        PhotonNetwork.CreateRoom("Room " + randomRoomName, roomOptions);
+        PhotonNetwork.CreateRoom(randomRoomName, roomOptions);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

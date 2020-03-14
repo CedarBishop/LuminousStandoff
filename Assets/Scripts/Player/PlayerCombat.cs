@@ -17,7 +17,6 @@ public class PlayerCombat : MonoBehaviour
 	Vector3 joystickDirection;
 	bool canShoot;
 	public Image healthBar;
-	bool isDoubleDamage;
 
 	void Start()
 	{
@@ -38,6 +37,8 @@ public class PlayerCombat : MonoBehaviour
 
 		healthBar.fillAmount = 1.0f;
 	}
+
+
 #if UNITY_ANDROID || UNITY_IPHONE || UNITY_WEBGL
 	void Update()
 	{
@@ -55,18 +56,7 @@ public class PlayerCombat : MonoBehaviour
 		}
 	}
 
-	private void OnEnable()
-	{
-		GameManager.OnDoubleDamage += ChangeBulletDamage;
-		isDoubleDamage = false;
-	}
 
-
-	private void OnDisable()
-	{
-		GameManager.OnDoubleDamage -= ChangeBulletDamage;
-		isDoubleDamage = false;
-	}
 
 
 #elif UNITY_EDITOR || UNITY_STANDALONE
@@ -102,7 +92,7 @@ public class PlayerCombat : MonoBehaviour
 				"RPC_SpawnAndInitProjectile",
 				RpcTarget.Others,
 				new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
-				transform.rotation
+				transform.rotation				
 			);
 
 			Projectile bullet = Instantiate(
@@ -126,10 +116,9 @@ public class PlayerCombat : MonoBehaviour
 	}
 
 	[PunRPC]
-	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion, bool isDoubleDamage)
+	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion)
 	{
 		Projectile bullet = Instantiate(bulletPrefab, origin, quaternion);
-		bullet.isDoubleDamage = isDoubleDamage;
 		bullet.isMyProjectile = false;
 	}
 
@@ -180,10 +169,5 @@ public class PlayerCombat : MonoBehaviour
 	{
 		health = 100;
 		photonView.RPC("RPC_UpdateHealth", RpcTarget.All, health, roomNumber);
-	}
-
-	void ChangeBulletDamage (bool DoubleDamage)
-	{
-		isDoubleDamage = DoubleDamage;
 	}
 }
