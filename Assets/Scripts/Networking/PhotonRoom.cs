@@ -72,7 +72,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void CreatePlayer()
     {
         PhotonNetwork.Instantiate(("PhotonPrefabs/PhotonNetworkPlayer") ,transform.position,Quaternion.identity, 0);
-        PhotonNetwork.Instantiate(("PhotonPrefabs/Skill Selection Holder"), transform.position, Quaternion.identity, 0);
+       // PhotonNetwork.Instantiate(("PhotonPrefabs/Skill Selection Holder"), transform.position, Quaternion.identity, 0);
 
     }
 

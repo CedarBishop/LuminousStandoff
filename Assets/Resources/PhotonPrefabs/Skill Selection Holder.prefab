@@ -44,6 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1b73e12ec4469418927d0f0a7ba824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passiveSprites:
+  - {fileID: 21300000, guid: 39f5be9e8d99cfd4a904dda4317985a2, type: 3}
+  - {fileID: 21300000, guid: 5557454971bdc6041b0450fff09e31c0, type: 3}
+  - {fileID: 21300000, guid: 326ef729b1ff6dd4da93a1b9f265e37c, type: 3}
+  - {fileID: 21300000, guid: e27b43ecb5c8861449310a0817376f51, type: 3}
+  - {fileID: 21300000, guid: f5454bfa3e5edbd49980c16b17c219bf, type: 3}
+  activeSprites:
+  - {fileID: 21300000, guid: b5ef9205bf34cf646bddbb161d3fe03d, type: 3}
+  - {fileID: 21300000, guid: 43d71925068cff547a4b20f60d237fbf, type: 3}
+  - {fileID: 21300000, guid: 9ee9542300615e648ac5d43063316668, type: 3}
+  - {fileID: 21300000, guid: 5a1ee252f9c1beb43a51cda38731595d, type: 3}
+  - {fileID: 21300000, guid: 7a687af8b3322f3468ffb0a74c4a4019, type: 3}
 --- !u!114 &5155783501320934526
 MonoBehaviour:
   m_ObjectHideFlags: 0

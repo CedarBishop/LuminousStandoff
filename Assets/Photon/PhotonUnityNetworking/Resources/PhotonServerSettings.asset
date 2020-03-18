@@ -44,5 +44,9 @@ MonoBehaviour:
   - RPC_SpawnHealthPickup
   - RPC_OnHealthPickup
   - RPC_PlayerDeath
+  - RPC_AssignRandomSkillIcon
+  - RPC_RemoveActiveSkills
+  - RPC_RemovePassiveSkills
+  - RPC_InitRandomSkills
   DisableAutoOpenWizard: 1
   ShowSettings: 1

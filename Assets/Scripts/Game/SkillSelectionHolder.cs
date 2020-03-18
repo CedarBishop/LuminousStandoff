@@ -17,6 +17,9 @@ public class SkillSelectionHolder : MonoBehaviour
     private List<PassiveSkills> thisMatchPassiveSkills = new List<PassiveSkills>();
     private List<ActiveSkills> thisMatchActiveSkills = new List<ActiveSkills>();
 
+    public Sprite[] passiveSprites;
+    public Sprite[] activeSprites;
+
     private void Awake()
     {
         if (instance == null)
@@ -49,44 +52,65 @@ public class SkillSelectionHolder : MonoBehaviour
             }
             PrintRemainingSkills();
 
-            //photonView.RPC("RPC_InitRandomSkills", RpcTarget.OthersBuffered, thisMatchPassiveSkills,thisMatchActiveSkills);
+            int[] passiveSkillNums = new int[thisMatchPassiveSkills.Count];
+            int[] activeSkillNums = new int[thisMatchActiveSkills.Count];
+            for (int i = 0; i < thisMatchPassiveSkills.Count; i++)
+            {
+                passiveSkillNums[i] = (int)thisMatchPassiveSkills[i];
+            }
+            for (int i = 0; i < thisMatchActiveSkills.Count; i++)
+            {
+                activeSkillNums[i] = (int)thisMatchActiveSkills[i];
+            }
+
+            photonView.RPC("RPC_InitRandomSkills", RpcTarget.OthersBuffered, passiveSkillNums,activeSkillNums);
         }
        
     }
 
-    //void RPC_InitRandomSkills(List<PassiveSkills> passiveSkills, List<ActiveSkills> activeSkills)
-    //{
-    //    thisMatchPassiveSkills = passiveSkills;
-    //    thisMatchActiveSkills = activeSkills;
-    //}
+    [PunRPC]
+    void RPC_InitRandomSkills(int[] passiveSkillNums, int[] activeSkillNums)
+    {
+        for (int i = 0; i < passiveSkillNums.Length; i++)
+        {
+            thisMatchPassiveSkills.Add((PassiveSkills)passiveSkillNums[i]);
+        }
+        for (int i = 0; i < activeSkillNums.Length; i++)
+        {
+            thisMatchActiveSkills.Add((ActiveSkills)activeSkillNums[i]);
+
+        }
+       
+        PrintRemainingSkills();
+    }
 
     public void RemovePassiveSkill (int index)
     {
         thisMatchPassiveSkills.RemoveAt(index);
         PrintRemainingSkills();
-       // photonView.RPC("RPC_RemovePassiveSkills",RpcTarget.All, index);
+        photonView.RPC("RPC_RemovePassiveSkills",RpcTarget.All, index);
     }
 
-    //[PunRPC]
-    //void RPC_RemovePassiveSkills(int index)
-    //{
-    //    thisMatchPassiveSkills.RemoveAt(index);
-    //    PrintRemainingSkills();
-    //}
+    [PunRPC]
+    void RPC_RemovePassiveSkills(int index)
+    {
+        thisMatchPassiveSkills.RemoveAt(index);
+        PrintRemainingSkills();
+    }
 
     public void RemoveActiveSkill (int index)
     {
         thisMatchActiveSkills.RemoveAt(index);
         PrintRemainingSkills();
-        //photonView.RPC("RPC_RemoveActiveSkills", RpcTarget.All, index);
+        photonView.RPC("RPC_RemoveActiveSkills", RpcTarget.All, index);
     }
 
-    //[PunRPC]
-    //void RPC_RemoveActiveSkills(int index)
-    //{
-    //    thisMatchActiveSkills.RemoveAt(index);
-    //    PrintRemainingSkills();
-    //}
+    [PunRPC]
+    void RPC_RemoveActiveSkills(int index)
+    {
+        thisMatchActiveSkills.RemoveAt(index);
+        PrintRemainingSkills();
+    }
 
     public PassiveSkills[] GetPassiveSkills()
     {
@@ -117,6 +141,49 @@ public class SkillSelectionHolder : MonoBehaviour
         for (int i = 0; i < thisMatchActiveSkills.Count; i++)
         {
             print(thisMatchActiveSkills[i]);
+        }
+    }
+
+    public int GetChosenPassiveSkillSprite (PassiveSkills passive)
+    {
+        switch (passive)
+        {
+            case PassiveSkills.None:
+                return 0;
+            case PassiveSkills.BouncyBullet:
+                return 0;
+            case PassiveSkills.HelperBullet:
+                return 1;
+            case PassiveSkills.SlowdownBullet:
+                return 2;
+            case PassiveSkills.SpeedUp:
+                return 3;
+            case PassiveSkills.TriShield:
+                return 4;
+            default:
+                return 0;
+        }
+    }
+
+    public int GetChosenActiveSkillSprite(ActiveSkills active)
+    {
+        switch (active)
+        {
+            case ActiveSkills.None:
+                return 0;
+            case ActiveSkills.DropMine:
+                return 0;
+            case ActiveSkills.Rewind:
+                return 1;
+            case ActiveSkills.Shotgun:
+                return 2;
+            case ActiveSkills.Stealth:
+                return 3;
+            case ActiveSkills.TempShield:
+                return 4;
+            default:
+                return 0;
+
         }
     }
 

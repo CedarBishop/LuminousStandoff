@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
 
 	[HideInInspector] public bool isDoubleDamage;
 
+	public Image playerOnePassiveSkillImage;
+	public Image playerOneActionSkillImage;
+	public Image playerTwoPassiveSkillImage;
+	public Image playerTwoActionSkillImage;
+
 	// Make Script Singleton
 	private void Awake()
 	{
@@ -69,6 +74,11 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator Start()
 	{
+		playerOnePassiveSkillImage.gameObject.SetActive(false);
+		playerOneActionSkillImage.gameObject.SetActive(false);
+		playerTwoPassiveSkillImage.gameObject.SetActive(false);
+		playerTwoActionSkillImage.gameObject.SetActive(false);
+
 		skillSelectionParent.SetActive(false);
 		winText.text = "";
 		yield return new WaitForSeconds(0.24f);
@@ -123,6 +133,8 @@ public class GameManager : MonoBehaviour
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
 					//SpawnSkillSelectionButtons();
+					print("Reached dying player equal this player");
+					AssignRandomSkills(dyingPlayerNumber);
 				}
 
 				//Start Intermission between rounds
@@ -156,6 +168,8 @@ public class GameManager : MonoBehaviour
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
 					//SpawnSkillSelectionButtons();
+					print("Reached dying player equal this player");
+					AssignRandomSkills(dyingPlayerNumber);
 				}
 
 				Intermission();
@@ -213,16 +227,16 @@ public class GameManager : MonoBehaviour
 			}
 			if (roundTimer <= 0)
 			{
-				roundIsUnderway = false;
-				isRoundIntermission = false;
-				RPC_RoundDraw();
-				//if (PhotonNetwork.IsMasterClient)
-				//{
-				//	roundIsUnderway = false;
-				//	isRoundIntermission = false;
-				//	photonView.RPC("RPC_RoundDraw", RpcTarget.All);
-				//	print("Stopped timer");
-				//}
+				//roundIsUnderway = false;
+				//isRoundIntermission = false;
+				//RPC_RoundDraw();
+				if (PhotonNetwork.IsMasterClient)
+				{
+					roundIsUnderway = false;
+					isRoundIntermission = false;
+					photonView.RPC("RPC_RoundDraw", RpcTarget.All);
+					print("Stopped timer");
+				}
 			}
 			else
 			{
@@ -234,15 +248,15 @@ public class GameManager : MonoBehaviour
 		{
 			if (roundTimer <= 0)
 			{
-				isRoundIntermission = false;
-				RPC_StartNewRound();
+				//isRoundIntermission = false;
+				//RPC_StartNewRound();
 
-				//if (PhotonNetwork.IsMasterClient)
-				//{
-				//	isRoundIntermission = false;
-				//	RPC_StartNewRound();
-				//	photonView.RPC("RPC_StartNewRound", RpcTarget.Others);
-				//}
+				if (PhotonNetwork.IsMasterClient)
+				{
+					isRoundIntermission = false;
+					RPC_StartNewRound();
+					photonView.RPC("RPC_StartNewRound", RpcTarget.Others);
+				}
 			}
 			else
 			{
@@ -403,6 +417,7 @@ public class GameManager : MonoBehaviour
 		if (hasSelectedPassive == false)
 		{
 			print("Reached spawn passive");
+
 			PassiveSkills[] passiveSkills = SkillSelectionHolder.instance.GetPassiveSkills();
 			for (int i = 0; i < passiveSkills.Length; i++)
 			{
@@ -419,6 +434,81 @@ public class GameManager : MonoBehaviour
 			{
 				Button button = Instantiate(skillButtonPrefab, activeSkillLayout.transform).GetComponent<Button>();
 				button.GetComponent<SkillButton>().InitialiseButton(false,i);
+			}
+		}
+	}
+
+	void AssignRandomSkills(int playerNum)
+	{
+		if (hasSelectedPassive == false)
+		{
+			hasSelectedPassive = true;
+			
+			PassiveSkills[] passives = SkillSelectionHolder.instance.GetPassiveSkills();
+			if (passives != null)
+			{
+				print(passives.Length);
+				PassiveSkills passive = passives[UnityEngine.Random.Range(0, passives.Length)];
+				print(passive);
+				int num = SkillSelectionHolder.instance.GetChosenPassiveSkillSprite(passive);
+				photonView.RPC("RPC_AssignRandomSkillIcon", RpcTarget.All, playerNum, true, num);
+			}
+			else
+			{
+				print("passivs = null");
+			}
+
+		}
+		else if (hasSelectedAction == false)
+		{
+			hasSelectedAction = true;
+			ActiveSkills[] actives = SkillSelectionHolder.instance.GetActiveSkills();
+			if (actives != null)
+			{
+				print(actives.Length);
+				ActiveSkills active = actives[UnityEngine.Random.Range(0, actives.Length)];
+				print(active);
+				int num = SkillSelectionHolder.instance.GetChosenActiveSkillSprite(active);
+				photonView.RPC("RPC_AssignRandomSkillIcon", RpcTarget.All, playerNum, false, num);
+			}
+			else
+			{
+				print("active = null");
+			}
+			
+
+		}
+		print(playerNum + " got random skill");
+	}
+
+	[PunRPC]
+	void RPC_AssignRandomSkillIcon (int playerNum, bool isPassive, int num)
+	{
+		print("RPC Skill was called");
+		if (playerNum == 1)
+		{
+			if (isPassive)
+			{
+				playerOnePassiveSkillImage.gameObject.SetActive(true);
+				playerOnePassiveSkillImage.sprite = SkillSelectionHolder.instance.passiveSprites[num];
+			}
+			else
+			{
+				playerOneActionSkillImage.gameObject.SetActive(true);
+				playerOneActionSkillImage.sprite = SkillSelectionHolder.instance.activeSprites[num];
+			}
+		}
+		else if (playerNum == 2)
+		{
+			if (isPassive)
+			{
+				playerTwoPassiveSkillImage.gameObject.SetActive(true);
+				playerTwoPassiveSkillImage.sprite = SkillSelectionHolder.instance.passiveSprites[num];
+			}
+			else
+			{
+				playerTwoActionSkillImage.gameObject.SetActive(true);
+				playerTwoActionSkillImage.sprite = SkillSelectionHolder.instance.activeSprites[num];
 			}
 		}
 	}
