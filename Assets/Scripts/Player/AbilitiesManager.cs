@@ -13,8 +13,8 @@ public class AbilitiesManager : MonoBehaviour
 
 	[Header("Abilities Lists")]
 	// Enums to work with
-	[SerializeField] private PassiveSkills passiveSkills; 		// Our access to PASSIVE skills enum
-	[SerializeField] private ActiveSkills activeSkills; 		// Our access to ACTIVE skills enum
+	[SerializeField] public PassiveSkills passiveSkills; 		// Our access to PASSIVE skills enum
+	[SerializeField] public ActiveSkills activeSkills; 		// Our access to ACTIVE skills enum
 	[Space]
 	public Ability[] passiveAbilities;	 						// Where ALL PASSIVE abilities objects live
 	public Ability[] activeAbilities; 							// Where ALL ACTIVE abilities objects live

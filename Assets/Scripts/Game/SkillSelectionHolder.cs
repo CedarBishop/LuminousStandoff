@@ -86,8 +86,8 @@ public class SkillSelectionHolder : MonoBehaviour
 
     public void RemovePassiveSkill (int index)
     {
-        thisMatchPassiveSkills.RemoveAt(index);
-        PrintRemainingSkills();
+        //thisMatchPassiveSkills.RemoveAt(index);
+        //PrintRemainingSkills();
         photonView.RPC("RPC_RemovePassiveSkills",RpcTarget.All, index);
     }
 
@@ -95,13 +95,13 @@ public class SkillSelectionHolder : MonoBehaviour
     void RPC_RemovePassiveSkills(int index)
     {
         thisMatchPassiveSkills.RemoveAt(index);
-        PrintRemainingSkills();
+        //PrintRemainingSkills();
     }
 
     public void RemoveActiveSkill (int index)
     {
-        thisMatchActiveSkills.RemoveAt(index);
-        PrintRemainingSkills();
+        //thisMatchActiveSkills.RemoveAt(index);
+        //PrintRemainingSkills();
         photonView.RPC("RPC_RemoveActiveSkills", RpcTarget.All, index);
     }
 
@@ -109,7 +109,7 @@ public class SkillSelectionHolder : MonoBehaviour
     void RPC_RemoveActiveSkills(int index)
     {
         thisMatchActiveSkills.RemoveAt(index);
-        PrintRemainingSkills();
+        //PrintRemainingSkills();
     }
 
     public PassiveSkills[] GetPassiveSkills()

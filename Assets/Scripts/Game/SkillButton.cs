@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class SkillButton : MonoBehaviour
 {
 
-    public Sprite[] sprites;
-    public Sprite sprite;
+    Image image;
     int skillNumber;
     bool isPassive;
-    public Text text;
 
    
     public void InitialiseButton (bool IsPassive, int SkillNumber)
@@ -20,23 +18,28 @@ public class SkillButton : MonoBehaviour
         if (isPassive)
         {
             PassiveSkills[] passive = SkillSelectionHolder.instance.GetPassiveSkills();
-            text.text = passive[skillNumber].ToString();
+            int num = SkillSelectionHolder.instance.GetChosenPassiveSkillSprite(passive[skillNumber]);
+            image = GetComponent<Image>();
+            image.sprite = SkillSelectionHolder.instance.passiveSprites[num];
+
         }
         else
         {
-            ActiveSkills[] action = SkillSelectionHolder.instance.GetActiveSkills();
-            text.text = action[skillNumber].ToString();
+            ActiveSkills[] active = SkillSelectionHolder.instance.GetActiveSkills();
+            int num = SkillSelectionHolder.instance.GetChosenActiveSkillSprite(active[skillNumber]);
+            image = GetComponent<Image>();
+            image.sprite = SkillSelectionHolder.instance.activeSprites[num];
         }
     }
 
     void Start()
     {
-        GameManager.DestroySkillButtons += () => Destroy(gameObject);
+        GameManager.DestroySkillButtons += DestroySelf;
     }
 
     private void OnDestroy()
     {
-        GameManager.DestroySkillButtons -= () => Destroy(gameObject);
+        GameManager.DestroySkillButtons -= DestroySelf;
 
     }
 
@@ -45,5 +48,8 @@ public class SkillButton : MonoBehaviour
         GameManager.instance.SkillSelectButton(isPassive,skillNumber);
     }
 
-    
+    void DestroySelf()
+    {
+        Destroy(gameObject);
+    }    
 }

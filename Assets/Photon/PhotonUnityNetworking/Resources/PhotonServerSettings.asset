@@ -48,5 +48,6 @@ MonoBehaviour:
   - RPC_RemoveActiveSkills
   - RPC_RemovePassiveSkills
   - RPC_InitRandomSkills
+  - RPC_AssignSkillIcon
   DisableAutoOpenWizard: 1
   ShowSettings: 1

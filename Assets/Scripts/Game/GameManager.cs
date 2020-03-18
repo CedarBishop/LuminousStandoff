@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
 	private PhotonView photonView;
 
+	private int roomNumber;
+
 	public PlayerStats statsPrefab;
 	public LayoutGroup layoutGroup;
 	private Player[] players;
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
 	// Called when a player dies
 	public void PlayerDied(int dyingPlayerNumber, int sendingPlayerNumber)
 	{
+		roomNumber = sendingPlayerNumber;
 		string displayText = "";
 		//player two dies
 		if (dyingPlayerNumber == 2)
@@ -132,9 +135,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					//SpawnSkillSelectionButtons();
-					print("Reached dying player equal this player");
-					AssignRandomSkills(dyingPlayerNumber);
+					SpawnSkillSelectionButtons();
 				}
 
 				//Start Intermission between rounds
@@ -167,9 +168,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (dyingPlayerNumber == sendingPlayerNumber)
 				{
-					//SpawnSkillSelectionButtons();
-					print("Reached dying player equal this player");
-					AssignRandomSkills(dyingPlayerNumber);
+					SpawnSkillSelectionButtons();
 				}
 
 				Intermission();
@@ -388,18 +387,20 @@ public class GameManager : MonoBehaviour
 
 	public void SkillSelectButton(bool isPassive, int skillNumber)
 	{
-		//assign skill to player
+
+
+		//assign skill to player and set icon on ui
+		AssignSkill(isPassive,skillNumber);
+
 		if (isPassive)
 		{
 			SkillSelectionHolder.instance.RemovePassiveSkill(skillNumber);
 			hasSelectedPassive = true;
-			activeSkillLayout.SetActive(true);
 		}
 		else
 		{
 			SkillSelectionHolder.instance.RemoveActiveSkill(skillNumber);
 			hasSelectedAction = true;
-			activeSkillLayout.SetActive(false);
 		}
 		if (DestroySkillButtons != null)
 		{
@@ -413,11 +414,8 @@ public class GameManager : MonoBehaviour
 	void SpawnSkillSelectionButtons()
 	{
 		skillSelectionParent.SetActive(true);
-		print("Reached skill selection button");
 		if (hasSelectedPassive == false)
 		{
-			print("Reached spawn passive");
-
 			PassiveSkills[] passiveSkills = SkillSelectionHolder.instance.GetPassiveSkills();
 			for (int i = 0; i < passiveSkills.Length; i++)
 			{
@@ -438,51 +436,55 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	void AssignRandomSkills(int playerNum)
+	void AssignSkill(bool isPassive, int skillNumber)
 	{
-		if (hasSelectedPassive == false)
+		if (isPassive)
 		{
-			hasSelectedPassive = true;
-			
 			PassiveSkills[] passives = SkillSelectionHolder.instance.GetPassiveSkills();
 			if (passives != null)
 			{
-				print(passives.Length);
-				PassiveSkills passive = passives[UnityEngine.Random.Range(0, passives.Length)];
-				print(passive);
-				int num = SkillSelectionHolder.instance.GetChosenPassiveSkillSprite(passive);
-				photonView.RPC("RPC_AssignRandomSkillIcon", RpcTarget.All, playerNum, true, num);
-			}
-			else
-			{
-				print("passivs = null");
-			}
+				int num = SkillSelectionHolder.instance.GetChosenPassiveSkillSprite(passives[skillNumber]);
+				photonView.RPC("RPC_AssignSkillIcon", RpcTarget.All, roomNumber, true, num);
 
+				AbilitiesManager[] abilitiesManagers = FindObjectsOfType<AbilitiesManager>();
+				if (abilitiesManagers != null)
+				{
+					for (int i = 0; i < abilitiesManagers.Length; i++)
+					{
+						if (abilitiesManagers[i].GetComponent<PhotonView>().IsMine)
+						{
+							abilitiesManagers[i].passiveSkills = SkillSelectionHolder.instance.GetPassiveSkills()[skillNumber];
+						}
+					}
+				}
+			}
 		}
-		else if (hasSelectedAction == false)
+		else
 		{
-			hasSelectedAction = true;
 			ActiveSkills[] actives = SkillSelectionHolder.instance.GetActiveSkills();
 			if (actives != null)
 			{
-				print(actives.Length);
-				ActiveSkills active = actives[UnityEngine.Random.Range(0, actives.Length)];
-				print(active);
-				int num = SkillSelectionHolder.instance.GetChosenActiveSkillSprite(active);
-				photonView.RPC("RPC_AssignRandomSkillIcon", RpcTarget.All, playerNum, false, num);
-			}
-			else
-			{
-				print("active = null");
-			}
-			
+				int num = SkillSelectionHolder.instance.GetChosenActiveSkillSprite(actives[skillNumber]);
+				photonView.RPC("RPC_AssignSkillIcon", RpcTarget.All, roomNumber, false, num);
 
+				AbilitiesManager[] abilitiesManagers = FindObjectsOfType<AbilitiesManager>();
+				if (abilitiesManagers != null)
+				{
+					for (int i = 0; i < abilitiesManagers.Length; i++)
+					{
+						if (abilitiesManagers[i].GetComponent<PhotonView>().IsMine)
+						{
+							abilitiesManagers[i].activeSkills = SkillSelectionHolder.instance.GetActiveSkills()[skillNumber];
+						}
+					}
+				}
+			}	
 		}
-		print(playerNum + " got random skill");
 	}
 
+
 	[PunRPC]
-	void RPC_AssignRandomSkillIcon (int playerNum, bool isPassive, int num)
+	void RPC_AssignSkillIcon (int playerNum, bool isPassive, int num)
 	{
 		print("RPC Skill was called");
 		if (playerNum == 1)
