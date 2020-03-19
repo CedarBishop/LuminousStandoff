@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
 
 	public static event Action DestroySkillButtons;
 
-	public static event Action OnActionButton;
-
 	[HideInInspector] public bool isDoubleDamage;
 
 	public Image playerOnePassiveSkillImage;
@@ -226,9 +224,7 @@ public class GameManager : MonoBehaviour
 			}
 			if (roundTimer <= 0)
 			{
-				//roundIsUnderway = false;
-				//isRoundIntermission = false;
-				//RPC_RoundDraw();
+
 				if (PhotonNetwork.IsMasterClient)
 				{
 					roundIsUnderway = false;
@@ -247,8 +243,6 @@ public class GameManager : MonoBehaviour
 		{
 			if (roundTimer <= 0)
 			{
-				//isRoundIntermission = false;
-				//RPC_StartNewRound();
 
 				if (PhotonNetwork.IsMasterClient)
 				{
@@ -524,14 +518,6 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			PlayerInfo.playerInfo.passionEarnedThisMatch = 5;
-		}
-	}
-
-	public void ActionButton ()
-	{
-		if (OnActionButton != null)
-		{
-			OnActionButton();
 		}
 	}
 }

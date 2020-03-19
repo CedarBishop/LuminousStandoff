@@ -6,17 +6,18 @@ using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour
 {
 	public int health;
-	PhotonView photonView;
-	public Projectile bulletPrefab;
-	[SerializeField] private float bulletSpawnOffset;
-	public int roomNumber;
-
-	private FixedJoystick fixedJoystick;
-	public Projectile projectilePrefab;
 	public float fireRate = 0.1f;
-	Vector3 joystickDirection;
-	bool canShoot;
+	public Projectile bulletPrefab;
 	public Image healthBar;
+	
+	[SerializeField] private float bulletSpawnOffset;
+	[HideInInspector] public int roomNumber;
+
+	private PhotonView photonView;
+	private FixedJoystick fixedJoystick;
+	private AbilitiesManager abilitiesManager;
+	private Vector3 joystickDirection;
+	private bool canShoot;
 
 	void Start()
 	{
@@ -25,6 +26,7 @@ public class PlayerCombat : MonoBehaviour
 #endif
 
 		photonView = GetComponent<PhotonView>();
+		abilitiesManager = GetComponent<AbilitiesManager>();
 
 		if (int.TryParse(PhotonNetwork.NickName, out roomNumber))
 		{
@@ -88,11 +90,13 @@ public class PlayerCombat : MonoBehaviour
 	{
 		if (photonView.IsMine)
 		{
+			int bulletBounces = (abilitiesManager.passiveSkills == PassiveSkills.BouncyBullet) ? 2 : 0;
 			photonView.RPC(
 				"RPC_SpawnAndInitProjectile",
 				RpcTarget.Others,
 				new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
-				transform.rotation				
+				transform.rotation,
+				bulletBounces
 			);
 
 			Projectile bullet = Instantiate(
@@ -102,6 +106,7 @@ public class PlayerCombat : MonoBehaviour
 			);
 			bullet.ChangeToAllyMaterial();
 			bullet.isMyProjectile = true;
+			bullet.bounces = bulletBounces;
 
 			Destroy(bullet, 3);
 		}
@@ -116,10 +121,11 @@ public class PlayerCombat : MonoBehaviour
 	}
 
 	[PunRPC]
-	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion)
+	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion, int bounces)
 	{
 		Projectile bullet = Instantiate(bulletPrefab, origin, quaternion);
 		bullet.isMyProjectile = false;
+		bullet.bounces = bounces;
 	}
 
 	public void TakeDamage(int damage)

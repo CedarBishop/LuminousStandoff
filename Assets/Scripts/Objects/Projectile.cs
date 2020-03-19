@@ -12,8 +12,9 @@ public class Projectile : MonoBehaviour
 	public float force;
 	[HideInInspector] public bool isMyProjectile;
 	Vector3 _direction;
-	public bool isDoubleDamage;
+	[HideInInspector]public bool isDoubleDamage;
 	public Material allyMaterial;
+	[HideInInspector]public int bounces;
 
 	[SerializeField]
 	private ParticleSystem sparks; // For when bouncing off walls
@@ -33,35 +34,40 @@ public class Projectile : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	private void OnTriggerEnter(Collider collision)
+	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.GetComponentInParent<PlayerCombat>())
+		if (collision.gameObject.GetComponentInParent<PlayerCombat>())
 		{
 			if (isMyProjectile)
 			{
-				if (collision.GetComponentInParent<PhotonView>().IsMine)
+				if (collision.gameObject.GetComponentInParent<PhotonView>().IsMine)
 				{
 					return;
 				}
 			}
 
-			if (collision.GetComponentInParent<PhotonView>())
+			if (collision.gameObject.GetComponentInParent<PhotonView>())
 			{
-				if (collision.GetComponentInParent<PhotonView>().IsMine)
+				if (collision.gameObject.GetComponentInParent<PhotonView>().IsMine)
 				{
-					collision.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2:damage);
+					collision.gameObject.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2:damage);
 
 					print("hit by enemy");
 				}
 			}
 		}
 
-		if (collision.gameObject.CompareTag("Wall"))
+		if (collision.gameObject.gameObject.CompareTag("Wall"))
 		{
 			if (sparks != null)
 			{
 				sparks.Play();
+			}
 
+			if (bounces > 0)
+			{
+				bounces--;
+				return;
 			}
 		}
 
@@ -73,6 +79,5 @@ public class Projectile : MonoBehaviour
 	public void ChangeToAllyMaterial()
 	{
 		GetComponent<MeshRenderer>().material = allyMaterial;
-
 	}
 }
