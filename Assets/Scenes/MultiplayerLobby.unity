@@ -452,6 +452,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lobby map
       objectReference: {fileID: 0}
+    - target: {fileID: 6421813303928938214, guid: c166660c4cf23b544ae1805f83106f76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6733502014314357720, guid: c166660c4cf23b544ae1805f83106f76,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -733,7 +738,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-62844
+  m_Name: pb_Mesh-45078
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1128,7 +1133,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-62856
+  m_Name: pb_Mesh-45090
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

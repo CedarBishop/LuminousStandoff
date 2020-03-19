@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 400
+  slowedMovementSpeed: 0
+  timeSlowedFor: 3
 --- !u!114 &4357997688448584929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,14 +195,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  fireRate: 0.1
   bulletPrefab: {fileID: 1521587406091909286, guid: 5ac942e20c4692e40b14d1f44342543e,
     type: 3}
+  helperBulletPrefab: {fileID: 1521587406091909286, guid: 9da1f7ce8dfa88c4697ea9af6a071373,
+    type: 3}
+  healthBar: {fileID: 5395470379465073144}
   bulletSpawnOffset: 1
   roomNumber: 0
-  projectilePrefab: {fileID: 1521587406091909286, guid: 5ac942e20c4692e40b14d1f44342543e,
-    type: 3}
-  fireRate: 0.1
-  healthBar: {fileID: 5395470379465073144}
 --- !u!114 &4357997688448584928
 MonoBehaviour:
   m_ObjectHideFlags: 0

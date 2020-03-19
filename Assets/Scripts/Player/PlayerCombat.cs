@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
 	public int health;
 	public float fireRate = 0.1f;
 	public Projectile bulletPrefab;
+	public Projectile helperBulletPrefab;
 	public Image healthBar;
 	
 	[SerializeField] private float bulletSpawnOffset;
@@ -16,8 +17,12 @@ public class PlayerCombat : MonoBehaviour
 	private PhotonView photonView;
 	private FixedJoystick fixedJoystick;
 	private AbilitiesManager abilitiesManager;
+	private PlayerMovement playerMovement;
 	private Vector3 joystickDirection;
 	private bool canShoot;
+	private uint bulletCount;
+	private bool hasHelperBullet;
+	
 
 	void Start()
 	{
@@ -26,7 +31,8 @@ public class PlayerCombat : MonoBehaviour
 #endif
 
 		photonView = GetComponent<PhotonView>();
-		abilitiesManager = GetComponent<AbilitiesManager>();
+		
+		playerMovement = GetComponent<PlayerMovement>();
 
 		if (int.TryParse(PhotonNetwork.NickName, out roomNumber))
 		{
@@ -38,6 +44,12 @@ public class PlayerCombat : MonoBehaviour
 		canShoot = true;
 
 		healthBar.fillAmount = 1.0f;
+	}
+
+	private void OnEnable()
+	{
+		abilitiesManager = GetComponent<AbilitiesManager>();
+		hasHelperBullet = (abilitiesManager.passiveSkills == PassiveSkills.HelperBullet);
 	}
 
 
@@ -90,23 +102,36 @@ public class PlayerCombat : MonoBehaviour
 	{
 		if (photonView.IsMine)
 		{
+			bool helperBullet = false;
+			if (hasHelperBullet)
+			{
+				bulletCount++;
+				if (bulletCount % 3 == 0)
+				{
+					helperBullet = true;
+				}
+			}
 			int bulletBounces = (abilitiesManager.passiveSkills == PassiveSkills.BouncyBullet) ? 2 : 0;
+			bool slowDownBullet = (abilitiesManager.passiveSkills == PassiveSkills.SlowdownBullet) ? true : false;
 			photonView.RPC(
 				"RPC_SpawnAndInitProjectile",
 				RpcTarget.Others,
 				new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
 				transform.rotation,
-				bulletBounces
+				bulletBounces,
+				slowDownBullet,
+				helperBullet
 			);
 
 			Projectile bullet = Instantiate(
-				bulletPrefab,
+				(helperBullet)?helperBulletPrefab:bulletPrefab,
 				new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
 				transform.rotation
 			);
 			bullet.ChangeToAllyMaterial();
 			bullet.isMyProjectile = true;
 			bullet.bounces = bulletBounces;
+			bullet.isSlowDownBullet = slowDownBullet;
 
 			Destroy(bullet, 3);
 		}
@@ -121,14 +146,24 @@ public class PlayerCombat : MonoBehaviour
 	}
 
 	[PunRPC]
-	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion, int bounces)
+	void RPC_SpawnAndInitProjectile(Vector3 origin, Quaternion quaternion, int bounces, bool isSlowDownBullet, bool isHelperBullet)
 	{
-		Projectile bullet = Instantiate(bulletPrefab, origin, quaternion);
+		Projectile bullet;
+		if (isHelperBullet)
+		{
+			bullet = Instantiate(helperBulletPrefab, origin, quaternion);
+		}
+		else
+		{
+			bullet = Instantiate(bulletPrefab, origin, quaternion);
+		}
+		
 		bullet.isMyProjectile = false;
 		bullet.bounces = bounces;
+		bullet.isSlowDownBullet = isSlowDownBullet;
 	}
 
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, bool isSlowdown)
 	{
 		if (GameManager.instance != null)
 		{
@@ -139,6 +174,10 @@ public class PlayerCombat : MonoBehaviour
 			{
 				GetComponent<AvatarSetup>()?.Die();
 			}
+		}
+		if (isSlowdown)
+		{
+			playerMovement.Slowed();
 		}
 	}
 

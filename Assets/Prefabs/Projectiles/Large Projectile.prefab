@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1521587406091909287}
   - component: {fileID: 1521587406091909286}
   m_Layer: 8
-  m_Name: Projectile
+  m_Name: Large Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1521587406091909284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -122,10 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a24907bc60684c4f900681f82b13f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  force: 500
+  damage: 20
+  force: 1000
   isMyProjectile: 0
   isDoubleDamage: 0
   allyMaterial: {fileID: 2100000, guid: 81a0b27a060042c42a4fb22dd39105a1, type: 2}
   bounces: 0
+  isSlowDownBullet: 0
   sparks: {fileID: 0}

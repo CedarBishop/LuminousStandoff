@@ -118,9 +118,11 @@ public class AbilitiesManager : MonoBehaviour
 
 	private void SpeedUp()
 	{
-		float moveSpeed = GetComponent<PlayerMovement>().movementSpeed;
+		PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+		float moveSpeed = playerMovement.movementSpeed;
 		moveSpeed *= speedIncreasePercentage;
 		moveSpeed = Mathf.Clamp(moveSpeed, 0f, maxMovementSpeed);
+		playerMovement.movementSpeed = moveSpeed;
 	}
 
 	public void ActivateAbility()

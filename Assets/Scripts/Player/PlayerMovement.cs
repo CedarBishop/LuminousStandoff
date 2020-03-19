@@ -7,11 +7,15 @@ using Photon.Pun;
 public class PlayerMovement : MonoBehaviour
 {
 	public float movementSpeed;
+	public float slowedMovementSpeed;
+	public float timeSlowedFor = 3;
 	private FixedJoystick joystick;
 	private PhotonView photonView;
 	private Rigidbody rigidbody;
 	private Vector3 movementDirection;
 	//private AbilitiesManager abManager;
+	bool isSlowed;
+	float timer;
 
 	void Start()
 	{
@@ -50,7 +54,28 @@ public class PlayerMovement : MonoBehaviour
 
 		movementDirection = movementDirection.normalized;
 
-		Vector3 movementVelocity = movementDirection * movementSpeed * Time.fixedDeltaTime;
+		Vector3 movementVelocity = movementDirection * Time.fixedDeltaTime * ((isSlowed)? slowedMovementSpeed : movementSpeed);
 		rigidbody.velocity = movementVelocity;
+	}
+
+	void SlowdownTimer ()
+	{
+		if (isSlowed)
+		{
+			if (timer <= 0.0f)
+			{
+				isSlowed = false;
+			}
+			else
+			{
+				timer -= Time.fixedDeltaTime;
+			}
+		}
+	}
+
+	public void Slowed ()
+	{
+		timer = timeSlowedFor;
+		isSlowed = true;
 	}
 }

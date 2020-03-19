@@ -15,6 +15,7 @@ public class Projectile : MonoBehaviour
 	[HideInInspector]public bool isDoubleDamage;
 	public Material allyMaterial;
 	[HideInInspector]public int bounces;
+	[HideInInspector]public bool isSlowDownBullet;
 
 	[SerializeField]
 	private ParticleSystem sparks; // For when bouncing off walls
@@ -50,14 +51,14 @@ public class Projectile : MonoBehaviour
 			{
 				if (collision.gameObject.GetComponentInParent<PhotonView>().IsMine)
 				{
-					collision.gameObject.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2:damage);
+					collision.gameObject.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2:damage, isSlowDownBullet);
 
 					print("hit by enemy");
 				}
 			}
 		}
 
-		if (collision.gameObject.gameObject.CompareTag("Wall"))
+		if (collision.gameObject.CompareTag("Wall"))
 		{
 			if (sparks != null)
 			{
