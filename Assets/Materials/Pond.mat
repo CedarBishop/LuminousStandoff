@@ -20,12 +20,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _SurfaceDistortion:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 82288e7e0d7dc0c428117e086fe5e6f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SurfaceNoise:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 309e3ee3018ce1746b1222335bd8c155, type: 3}
+        m_Scale: {x: 1, y: 4}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _DepthMaxDistance: 1

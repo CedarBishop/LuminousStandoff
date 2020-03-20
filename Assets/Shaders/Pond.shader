@@ -4,10 +4,8 @@
     {
 		// What color the water will sample when the surface below is shallow.
 		_DepthGradientShallow("Depth Gradient Shallow", Color) = (0.325, 0.807, 0.971, 0.725)
-
 		// What color the water will sample when the surface below is at its deepest.
 		_DepthGradientDeep("Depth Gradient Deep", Color) = (0.086, 0.407, 1, 0.749)
-
 		// Maximum distance the surface below the water will affect the color gradient.
 		_DepthMaxDistance("Depth Maximum Distance", Float) = 1
 
@@ -16,10 +14,8 @@
 
 		// Noise texture used to generate waves.
 		_SurfaceNoise("Surface Noise", 2D) = "white" {}
-
 		// Speed, in UVs per second the noise will scroll. Only the xy components are used.
 		_SurfaceNoiseScroll("Surface Noise Scroll Amount", Vector) = (0.03, 0.03, 0, 0)
-
 		// Values in the noise texture above this cutoff are rendered on the surface.
 		_SurfaceNoiseCutoff("Surface Noise Cutoff", Range(0, 1)) = 0.777
 
