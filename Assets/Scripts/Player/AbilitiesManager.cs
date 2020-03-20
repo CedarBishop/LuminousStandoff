@@ -49,10 +49,13 @@ public class AbilitiesManager : MonoBehaviour
 	private bool shieldActive;
 	[SerializeField] private GameObject shieldEffect;
 
+	private PlayerCombat playerCombat;
+
 	private void OnEnable()
 	{
 		PV = GetComponent<PhotonView>();
 		movementSpeed = GetComponent<PlayerMovement>().movementSpeed;
+		playerCombat = GetComponent<PlayerCombat>();
 
 		// Add method as delegate to ability UI button
 		AbilityInitiate.OnAbilityClick += ActivateAbility;
@@ -143,6 +146,7 @@ public class AbilitiesManager : MonoBehaviour
 					break;
 				case ActiveSkills.Shotgun:
 					currentActive = activeAbilities[2];
+					methodToCall = playerCombat.ShotgunShoot;
 					break;
 				case ActiveSkills.Stealth:
 					currentActive = activeAbilities[3];

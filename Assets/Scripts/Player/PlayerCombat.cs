@@ -7,6 +7,8 @@ public class PlayerCombat : MonoBehaviour
 {
 	public int health;
 	public float fireRate = 0.1f;
+	public float shotGunSpreadRate = 0.5f;
+	public int bulletsFiredPerShot;
 	public Projectile bulletPrefab;
 	public Projectile helperBulletPrefab;
 	public Image healthBar;
@@ -94,6 +96,13 @@ public class PlayerCombat : MonoBehaviour
 				Shoot();
 			}
 		}
+
+		// TODO: Debuging shot gun ability delete after confirming this works
+		if (Input.GetButtonDown("Fire2"))
+		{
+			
+			ShotgunShoot();
+		}
 	}
 #endif
 
@@ -137,6 +146,60 @@ public class PlayerCombat : MonoBehaviour
 		}
 
 		StartCoroutine("DelayShoot");
+	}
+
+	public void ShotgunShoot()
+	{
+		Quaternion[] shotGunRotations = new Quaternion[bulletsFiredPerShot];
+		int middleIndex = Mathf.RoundToInt(shotGunRotations.Length / 2);
+		shotGunRotations[0] = transform.rotation;
+		shotGunRotations[0].y -= shotGunSpreadRate * middleIndex;
+		for (int i = 1; i < shotGunRotations.Length; i++)
+		{
+			shotGunRotations[i] = shotGunRotations[0];
+			shotGunRotations[i].y += shotGunSpreadRate * i;
+		}
+
+		if (photonView.IsMine)
+		{
+			for (int i = 0; i < shotGunRotations.Length; i++)
+			{
+				bool helperBullet = false;
+				if (hasHelperBullet)
+				{
+					bulletCount++;
+					if (bulletCount % 3 == 0)
+					{
+						helperBullet = true;
+					}
+				}
+
+				int bulletBounces = (abilitiesManager.passiveSkills == PassiveSkills.BouncyBullet) ? 2 : 0;
+				bool slowDownBullet = (abilitiesManager.passiveSkills == PassiveSkills.SlowdownBullet) ? true : false;
+
+				photonView.RPC(
+				"RPC_SpawnAndInitProjectile",
+				RpcTarget.Others,
+				new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
+				shotGunRotations[i],
+				bulletBounces,
+				slowDownBullet,
+				helperBullet
+				);
+
+				Projectile bullet = Instantiate(
+					(helperBullet) ? helperBulletPrefab : bulletPrefab,
+					new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset ), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
+					shotGunRotations[i]
+				);
+				bullet.ChangeToAllyMaterial();
+				bullet.isMyProjectile = true;
+				bullet.bounces = bulletBounces;
+				bullet.isSlowDownBullet = slowDownBullet;
+
+				Destroy(bullet, 3);
+			}
+		}
 	}
 
 	IEnumerator DelayShoot()

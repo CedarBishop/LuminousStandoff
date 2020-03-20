@@ -196,6 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   fireRate: 0.1
+  shotGunSpreadRate: 0.2
+  bulletsFiredPerShot: 5
   bulletPrefab: {fileID: 1521587406091909286, guid: 5ac942e20c4692e40b14d1f44342543e,
     type: 3}
   helperBulletPrefab: {fileID: 1521587406091909286, guid: 9da1f7ce8dfa88c4697ea9af6a071373,
