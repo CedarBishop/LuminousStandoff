@@ -129,9 +129,12 @@ public class Sound
 
     public void Play()
     {
-        if (clip != null)
+        if (clip == null || source == null)
         {
-            source.Play();
+            return;
         }
+            
+            source.Play();
+        
     }
 }

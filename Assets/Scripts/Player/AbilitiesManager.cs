@@ -142,7 +142,7 @@ public class AbilitiesManager : MonoBehaviour
 					break;
 				case ActiveSkills.DropMine:
 					currentActive = activeAbilities[0];
-					methodToCall = playerCombat.PlaceLandMine;
+					methodToCall = playerCombat.PlaceDropMine;
 					StartCoroutine(AbilityDuration(currentActive, methodToCall));
 					StartCoroutine(AbilityCooldown(currentActive, methodToCall));
 					break;

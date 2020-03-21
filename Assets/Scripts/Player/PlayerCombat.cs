@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour
 {
@@ -101,8 +100,8 @@ public class PlayerCombat : MonoBehaviour
 		// TODO: Debuging shot gun ability delete after confirming this works
 		if (Input.GetButtonDown("Fire2"))
 		{
-			
-			ShotgunShoot();
+
+			PlaceDropMine();
 		}
 	}
 #endif
@@ -229,14 +228,15 @@ public class PlayerCombat : MonoBehaviour
 
 
 
-	public void PlaceLandMine()
+	public void PlaceDropMine()
 	{
-		PhotonNetwork.Instantiate(("PhotonPrefabs/LandMine"),
+		GameObject g = PhotonNetwork.Instantiate(("PhotonPrefabs/DropMine"),
 			new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
 				transform.rotation,
 				0
 				);
-
+		DropMine mine = g.GetComponent<DropMine>();
+		mine.roomNumber = roomNumber;
 	}	
 
 

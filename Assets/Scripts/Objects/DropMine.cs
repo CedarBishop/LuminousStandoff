@@ -8,25 +8,22 @@ public class DropMine : MonoBehaviour
     public float timeBeforeExplode;
     public ParticleSystem explosionParticle;
     public int damage;
+    public int roomNumber;
 
 
     void Start()
     {
-        StartCoroutine("CoExplode");
+        StartCoroutine("CoExplode"); // start timer before this mine explodes
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<PlayerCombat>())
+        if (other.GetComponentInParent<PlayerCombat>())             // Check if colliders has player combat component
         {
-            if (other.GetComponentInParent<PhotonView>().IsMine)
+            if (other.GetComponentInParent<PlayerCombat>().roomNumber != roomNumber) // check if that room number of that player does not equal the number of the player who placed this mine
             {
-                return;
-            }
-            else
-            {
-                other.GetComponentInParent<PlayerCombat>().TakeDamage(damage, false);
+                other.GetComponentInParent<PlayerCombat>().TakeDamage(damage, false); // if so, the damage that player and play explosion particle
                 ExplosionParticle();
             }
         }
@@ -45,8 +42,8 @@ public class DropMine : MonoBehaviour
         {
             ParticleSystem particle = Instantiate(explosionParticle, transform.position,Quaternion.identity);
             particle.Play();
+            Destroy(particle, 1);
         }
-
         Destroy(gameObject);
     }
 
