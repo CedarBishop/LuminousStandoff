@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 4291073926310669286}
   - component: {fileID: 4843723321832763976}
   - component: {fileID: 1214459529451600400}
+  - component: {fileID: 1558605098635257056}
   m_Layer: 0
   m_Name: Player Avatar
   m_TagString: Untagged
@@ -309,6 +310,20 @@ MonoBehaviour:
   stealthMaterial: {fileID: 2100000, guid: ba06da8ab9ee3c84e9bac6faa492cdaf, type: 2}
   stealthActiveMaterial: {fileID: 0}
   shieldEffect: {fileID: 1651260806888081699}
+--- !u!114 &1558605098635257056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357997688448584933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac37c6fbc112c645bcbd5d65e82ac12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewindSeconds: 2
+  intervalTime: 0.1
 --- !u!1 &8049877992989469647
 GameObject:
   m_ObjectHideFlags: 0

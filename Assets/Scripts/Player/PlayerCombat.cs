@@ -11,6 +11,7 @@ public class PlayerCombat : MonoBehaviour
 	public int bulletsFiredPerShot;
 	public Projectile bulletPrefab;
 	public Projectile helperBulletPrefab;
+	public DropMine landMinePrefab;
 	public Image healthBar;
 	
 	[SerializeField] private float bulletSpawnOffset;
@@ -226,6 +227,20 @@ public class PlayerCombat : MonoBehaviour
 		bullet.isSlowDownBullet = isSlowDownBullet;
 	}
 
+
+
+	public void PlaceLandMine()
+	{
+		PhotonNetwork.Instantiate(("PhotonPrefabs/LandMine"),
+			new Vector3(transform.position.x + (transform.forward.x * bulletSpawnOffset), transform.position.y, transform.position.z + (transform.forward.z * bulletSpawnOffset)),
+				transform.rotation,
+				0
+				);
+
+	}	
+
+
+
 	public void TakeDamage(int damage, bool isSlowdown)
 	{
 		if (GameManager.instance != null)
@@ -264,6 +279,7 @@ public class PlayerCombat : MonoBehaviour
 	void RPC_UpdateHealth(int health, int playerNumber)
 	{
 		//GameManager.instance.HealthUpdate(health, playerNumber);
+		SoundManager.instance.PlaySFX("TakeDamage");
 		float fillAmount = health / 100.0f;
 		healthBar.fillAmount = fillAmount;
 		if (health <= 0)
