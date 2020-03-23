@@ -261,6 +261,7 @@ public class GameManager : MonoBehaviour
 
 	public void StartRoundTimer()
 	{
+		SoundManager.instance.PlayMusic(false);
 		roundTimer = LevelManager.instance.roundTime;
 		roundTimerText.text = roundTimer.ToString("F1");
 		roundIsUnderway = true;
@@ -355,7 +356,9 @@ public class GameManager : MonoBehaviour
 
 	void Intermission()
 	{
-
+		SoundManager.instance.StopMusic();
+		SoundManager.instance.PlaySFX("Rewind");
+		StartCoroutine("PlayFastForwardAfterTime");
 		roundTimer = LevelManager.instance.intermissionTime;
 		isRoundIntermission = true;
 		roundIsUnderway = false;
@@ -376,6 +379,12 @@ public class GameManager : MonoBehaviour
 			}
 		}
 		
+	}
+
+	IEnumerator PlayFastForwardAfterTime()
+	{
+		yield return new WaitForSeconds(3);
+		SoundManager.instance.PlaySFX("FastForward");
 	}
 
 

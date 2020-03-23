@@ -49,10 +49,15 @@ public class AbilitiesManager : MonoBehaviour
 	private bool shieldActive;
 	[SerializeField] private GameObject shieldEffect;
 
+	private PlayerCombat playerCombat;
+	private PlayerRewind playerRewind;
+
 	private void OnEnable()
 	{
 		PV = GetComponent<PhotonView>();
 		movementSpeed = GetComponent<PlayerMovement>().movementSpeed;
+		playerCombat = GetComponent<PlayerCombat>();
+		playerRewind = GetComponent<PlayerRewind>();
 
 		// Add method as delegate to ability UI button
 		AbilityInitiate.OnAbilityClick += ActivateAbility;
@@ -137,12 +142,22 @@ public class AbilitiesManager : MonoBehaviour
 					break;
 				case ActiveSkills.DropMine:
 					currentActive = activeAbilities[0];
+					methodToCall = playerCombat.PlaceDropMine;
+					StartCoroutine(AbilityDuration(currentActive, methodToCall));
+					StartCoroutine(AbilityCooldown(currentActive, methodToCall));
 					break;
 				case ActiveSkills.Rewind:
 					currentActive = activeAbilities[1];
+					methodToCall = playerRewind.Rewind;
+					StartCoroutine(AbilityDuration(currentActive, methodToCall));
+					StartCoroutine(AbilityCooldown(currentActive, methodToCall));
+
 					break;
 				case ActiveSkills.Shotgun:
 					currentActive = activeAbilities[2];
+					methodToCall = playerCombat.ShotgunShoot;
+					StartCoroutine(AbilityDuration(currentActive, methodToCall));
+					StartCoroutine(AbilityCooldown(currentActive, methodToCall));
 					break;
 				case ActiveSkills.Stealth:
 					currentActive = activeAbilities[3];

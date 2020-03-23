@@ -50,6 +50,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void OnBattleButtonClicked ()
     {
+        SoundManager.instance.PlaySFX("Button");
         if (string.IsNullOrEmpty(roomNumberString))
         {
             PhotonNetwork.JoinRandomRoom();
@@ -82,6 +83,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void OnCancelButtonClicked()
     {
+        SoundManager.instance.PlaySFX("Button");
         cancelButton.SetActive(false);
         battleButton.SetActive(true);
         PhotonNetwork.LeaveRoom();

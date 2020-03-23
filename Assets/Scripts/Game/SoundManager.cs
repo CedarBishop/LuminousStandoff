@@ -8,8 +8,12 @@ public class SoundManager : MonoBehaviour
     AudioSource musicAudioSource;
     List<AudioSource> sfx = new List<AudioSource>();
 
+    [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private AudioClip gameMusic;
+
     [SerializeField]
     Sound[] sounds;
+
     private void Awake()
     {
         if (instance == null)
@@ -45,7 +49,7 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public void Play(string soundName)
+    public void PlaySFX(string soundName)
     {
         for (int i = 0; i < sounds.Length; i++)
         {
@@ -71,6 +75,36 @@ public class SoundManager : MonoBehaviour
             source.volume = value;
         }
     }
+
+    public void PlayMusic (bool isMainMenu)
+    {
+        if (isMainMenu)
+        {
+            if (mainMenuMusic != null)
+            {
+                musicAudioSource.loop = true;
+                musicAudioSource.clip = mainMenuMusic;
+                musicAudioSource.Play();
+            }
+        }
+        else
+        {
+            if (gameMusic != null)
+            {
+                musicAudioSource.loop = false;
+                musicAudioSource.clip = gameMusic;
+                musicAudioSource.Play();
+            }
+        }
+    }
+
+    public void StopMusic()
+    {
+        if (musicAudioSource.isPlaying)
+        {
+            musicAudioSource.Stop();
+        }
+    }
 }
 
 [System.Serializable]
@@ -78,13 +112,16 @@ public class Sound
 {
     public string name;
     public AudioClip clip;
-    public AudioSource source;
+    [HideInInspector]public AudioSource source;
+    [Range(-3.0f, 3.0f)] public float pitch = 1;
     float volume = 1;
+
 
     public void SetSource(AudioSource _source)
     {
         source = _source;
         source.clip = clip;
+        source.pitch = pitch;
 
     }
 
@@ -92,6 +129,12 @@ public class Sound
 
     public void Play()
     {
-        source.Play();
+        if (clip == null || source == null)
+        {
+            return;
+        }
+            
+            source.Play();
+        
     }
 }

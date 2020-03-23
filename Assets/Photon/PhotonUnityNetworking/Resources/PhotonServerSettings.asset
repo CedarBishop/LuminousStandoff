@@ -49,5 +49,6 @@ MonoBehaviour:
   - RPC_RemovePassiveSkills
   - RPC_InitRandomSkills
   - RPC_AssignSkillIcon
+  - RPC_PlaceLandMine
   DisableAutoOpenWizard: 1
   ShowSettings: 1

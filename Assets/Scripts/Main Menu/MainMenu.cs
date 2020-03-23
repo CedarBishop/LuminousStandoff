@@ -38,6 +38,7 @@ public class MainMenu : MonoBehaviour
 
     public void Quit  ()
     {
+        SoundManager.instance.PlaySFX("Button");
         Application.Quit();
     }
 
@@ -66,6 +67,7 @@ public class MainMenu : MonoBehaviour
             default:
                 break;
         }
+        SoundManager.instance.PlaySFX("Button");
     }
 
     public void UpdateCurrencyUI ()
@@ -117,6 +119,7 @@ public class MainMenu : MonoBehaviour
 
     public void NextCharacter ()
     {
+        SoundManager.instance.PlaySFX("Button");
         characterNumber++;
         if (characterNumber > currentCharacterDisplayObjects.Length - 1)
         {
