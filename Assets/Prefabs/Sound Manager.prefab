@@ -44,7 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509ff6c8cfc272d479f1f17fb3d0e3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  mainMenuMusic: {fileID: 0}
+  gameMusic: {fileID: 8300000, guid: 644899edae295044c81988a0fdd64aeb, type: 3}
+  sounds:
+  - name: Rewind
+    clip: {fileID: 8300000, guid: 185aad54fb8aec54998375b17a89bfb8, type: 3}
+    source: {fileID: 0}
+    pitch: 1
+  - name: FastForward
+    clip: {fileID: 8300000, guid: 0b0d29915a6c8e845a9991d4b55ab16b, type: 3}
+    source: {fileID: 0}
+    pitch: 1
+  - name: Shoot
+    clip: {fileID: 0}
+    source: {fileID: 0}
+    pitch: 1
+  - name: TakeDamage
+    clip: {fileID: 8300000, guid: c17c0f374516ee7408d5bfef071160e0, type: 3}
+    source: {fileID: 0}
+    pitch: 1
+  - name: Button
+    clip: {fileID: 8300000, guid: a1fd2e826ddf9bf4a83a5b7f641b0919, type: 3}
+    source: {fileID: 0}
+    pitch: 1
 --- !u!82 &5107528165328888384
 AudioSource:
   m_ObjectHideFlags: 0
@@ -56,7 +78,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

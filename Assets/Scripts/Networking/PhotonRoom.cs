@@ -57,6 +57,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         if (currentScene != 0)
         {
             CreatePlayer();
+            SoundManager.instance.PlayMusic(false);
+        }
+        else
+        {
+            SoundManager.instance.PlayMusic(true);
         }
 
     }

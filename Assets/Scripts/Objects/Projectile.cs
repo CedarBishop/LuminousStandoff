@@ -22,6 +22,7 @@ public class Projectile : MonoBehaviour
 
 	void Start()
 	{
+		SoundManager.instance.PlaySFX("Shoot");
 		photonView = GetComponent<PhotonView>();
 		rigidbody = GetComponent<Rigidbody>();
 		rigidbody.AddForce(force * transform.forward);
