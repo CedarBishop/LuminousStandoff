@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class NormalsReplacementShader : MonoBehaviour
+public class NormsReplacementShader : MonoBehaviour
 {
     [SerializeField] private Shader normalsShader;
     private RenderTexture renderTexture;
