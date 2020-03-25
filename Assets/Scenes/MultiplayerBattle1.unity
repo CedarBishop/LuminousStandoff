@@ -33729,6 +33729,11 @@ PrefabInstance:
       propertyPath: smallHealthPickups.Array.data[1]
       value: 
       objectReference: {fileID: 460287618}
+    - target: {fileID: 5143463932751240763, guid: 49229cb4e52c12e4987068e983971cc8,
+        type: 3}
+      propertyPath: intermissionTime
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8913365263029926577, guid: 49229cb4e52c12e4987068e983971cc8,
         type: 3}
       propertyPath: viewIdField

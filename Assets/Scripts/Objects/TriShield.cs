@@ -9,11 +9,11 @@ public class TriShield : MonoBehaviour
     public float shieldRespawnTime;
     
     private AbilitiesManager abilitiesManager;
-    private bool hasTriShieldAbiliity;
+    public bool hasTriShieldAbiliity;
 
     private void OnEnable()
     {
-        abilitiesManager = GetComponent<AbilitiesManager>();
+        abilitiesManager = GetComponentInParent<AbilitiesManager>();
 
         if (miniShields != null)
         {

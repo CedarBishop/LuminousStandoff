@@ -71,14 +71,14 @@ public class AbilitiesManager : MonoBehaviour
 		if (passiveAbilities.Length > 0)
 		{
 			// Go through list and pick random ability
-			currentPassive = passiveAbilities[UnityEngine.Random.Range(0, passiveAbilities.Length - 1)];
+			//currentPassive = passiveAbilities[UnityEngine.Random.Range(0, passiveAbilities.Length - 1)];
 			// currentPassive = passiveAbilities[3]; // TODO: Hard code - get rid of this
 
 			PassiveAbilityProcess(currentPassive);
 		}
 
 		// TODO: Hard coded temporarily (TEMPSHIELD)
-		currentActive = activeAbilities[4];
+		//currentActive = activeAbilities[4];
 	}
 
 	private void PassiveAbilityProcess(Ability chosenPassive)
