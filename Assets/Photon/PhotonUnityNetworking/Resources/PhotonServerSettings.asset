@@ -50,5 +50,8 @@ MonoBehaviour:
   - RPC_InitRandomSkills
   - RPC_AssignSkillIcon
   - RPC_PlaceLandMine
+  - RPC_Activate
+  - RPC_ActivateAll
+  - RPC_ActivateOne
   DisableAutoOpenWizard: 1
   ShowSettings: 1

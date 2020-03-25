@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   triShield: {fileID: 0}
+  isMine: 0
 --- !u!1 &1507164274254972927
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   triShield: {fileID: 0}
+  isMine: 0
 --- !u!1 &4357997688448584933
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831362542792522598}
   - component: {fileID: 4048665878144490868}
+  - component: {fileID: 913893729100848111}
   m_Layer: 0
   m_Name: TriShield Parent
   m_TagString: Untagged
@@ -592,7 +595,28 @@ MonoBehaviour:
   - {fileID: 6141661945684456048}
   rotationSpeeds: 50
   shieldRespawnTime: 5
-  hasTriShieldAbiliity: 0
+--- !u!114 &913893729100848111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7165953891117621277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7526112830772126405
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,6 +724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   triShield: {fileID: 0}
+  isMine: 0
 --- !u!1 &8049877992989469647
 GameObject:
   m_ObjectHideFlags: 0

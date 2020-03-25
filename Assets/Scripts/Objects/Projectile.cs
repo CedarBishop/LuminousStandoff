@@ -48,11 +48,24 @@ public class Projectile : MonoBehaviour
 				}
 			}
 
+			if (collision.gameObject.GetComponent<MiniShield>())
+			{
+				if (collision.gameObject.GetComponent<MiniShield>().BlockedProjectile())
+				{
+					Destroy(gameObject);
+				}
+				else
+				{
+					return;
+				}			
+				
+			}
+
 			if (collision.gameObject.GetComponentInParent<PhotonView>())
 			{
 				if (collision.gameObject.GetComponentInParent<PhotonView>().IsMine)
 				{
-					collision.gameObject.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2:damage, isSlowDownBullet);
+					collision.gameObject.GetComponentInParent<PlayerCombat>().TakeDamage((isDoubleDamage)?damage *2: damage, isSlowDownBullet);
 
 					print("hit by enemy");
 				}

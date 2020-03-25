@@ -6,9 +6,17 @@ public class MiniShield : MonoBehaviour
 {
     [HideInInspector] public int index;
     [HideInInspector] public TriShield triShield;
+    [HideInInspector] public bool isMine;
 
-    public void BlockedProjectile()
+
+    public bool BlockedProjectile()
     {
-        triShield.ResetMiniShield(index);
+        if (isMine == false)
+        {
+            triShield.ResetMiniShield(index);
+
+            return true;
+        }
+        return false;
     }
 }
