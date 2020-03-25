@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Character_Shader"
+﻿Shader "Custom/Character"
 {
 	Properties
 	{
@@ -10,11 +10,12 @@
 
 		/* Dissolve effect Properties */
 		_DissolveTex ("Dissolve Texture", 2D) = "white" {}
-		_DissolveBorderColour1 ("Edge colour 1", Color) = (1,1,1,1)
-		_DissolveBorderColour2 ("Edge colour 2", Color) = (1,1,1,1)
-		_DissolveAmount ("Dissolution level", Range (0, 1)) = 0.1
-		_DissolveTexWidth ("Edge width", Range (0.0, 1.0)) = 0.025
+		_DissolveBorderColour1 ("Dissolve Edge Colour 1", Color) = (1,1,1,1)
+		_DissolveBorderColour2 ("Dissolve Edge Colour 2", Color) = (1,1,1,1)
+		_DissolveAmount ("Dissolve Amount", Range (0, 1)) = 0
+		_DissolveWidth ("Dissolve Width", Range (0.0, 1.0)) = 0.025
 	}
+
 	SubShader
 	{
 		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
@@ -22,11 +23,7 @@
 
 		Pass
 		{
-			Blend SrcAlpha OneMinusSrcAlpha
 			Cull Off // Make double sided
-        	Lighting Off
-        	ZWrite Off
-        	Fog { Mode Off }
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -59,7 +56,7 @@
 			float4 _DissolveBorderColour1;
 			float4 _DissolveBorderColour2;
 			float _DissolveAmount;
-			float _DissolveTexWidth;
+			float _DissolveWidth;
 
 			v2f vert (appdata v)
 			{
@@ -85,8 +82,8 @@
 				if (cutout < _DissolveAmount)
 					discard;
 
-				if (cutout < col.a && cutout < _DissolveAmount + _DissolveTexWidth)
-					col = lerp(_DissolveBorderColour1, _DissolveBorderColour2, (cutout - _DissolveAmount) / _DissolveTexWidth);
+				if (cutout < col.a && cutout < _DissolveAmount + _DissolveWidth)
+					col = lerp(_DissolveBorderColour1, _DissolveBorderColour2, (cutout - _DissolveAmount) / _DissolveWidth);
 
 				return col;
 			}
